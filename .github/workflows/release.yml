@@ -22,7 +22,7 @@ jobs:
 
       - name: Compile Typst document
         run: |
-          typst compile "Collection of solutions.typ" "Collection-of-solutions.pdf"
+          typst compile "Collection-of-solutions.typ" "Collection-of-solutions.pdf"
         env:
           TYPST_PACKAGE_PATH: ${{ github.workspace }}/packages
 
