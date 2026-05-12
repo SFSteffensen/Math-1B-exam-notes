@@ -30,7 +30,6 @@
 = Quick Reference
 
 #important[
-  *Eksamensstrategi (30%+ for at bestå):*
   + *Tag alle MC* — ingen minuspoint. Selv et gæt giver 1/(antal valg).
   + *Skriv ALTID gradient ned først* i optimerings-/Taylor-opgaver — det er gratis point.
   + *Henvis til bogens sætninger/eksempler* — sparer tid. *ALDRIG* henvis til definitioner.
@@ -1774,5 +1773,4 @@
   + *Henvis til sætninger* fra bogen — sparer tid og ord.
   + *Aldrig henvis til DEFINITIONER* (ifølge spørgetimen — kun sætninger og eksempler).
   + *Svar på alle MC* — ingen minuspoint.
-  + *Ro på.* Du har 4 timer og kun brug for 30%.
 ]
