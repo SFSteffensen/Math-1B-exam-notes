@@ -1,6 +1,5 @@
-#import "@local/dtu-template:0.6.3":*
-#import "@preview/unify:0.7.1": num, qty, numrange, qtyrange
 #import "@local/dtu-template:0.6.3": *
+#import "@preview/unify:0.7.1": num, numrange, qty, qtyrange
 #import "@preview/physica:0.9.8": *
 #import "@preview/cetz:0.5.2"
 #import "@preview/cetz-plot:0.1.3"
@@ -46,17 +45,22 @@
     inset: 6pt,
     fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
     table.header([*Hvad*], [*Formel*]),
-    [Gradient af $f: RR^n -> RR$], [$grad f = vec(pdv(f,x_1), pdv(f,x_2), dots.v, pdv(f,x_n))$],
-    [Jacobi-matrix af $va(V): RR^n -> RR^m$], [$vb(J)_(va(V)) = mat(pdv(V_1,x_1), dots, pdv(V_1,x_n); dots.v, , dots.v; pdv(V_m,x_1), dots, pdv(V_m,x_n))$],
-    [Hesse-matrix af $f: RR^n -> RR$], [$vb(H)_f = mat(pdv(f,x_1,2), pdv(f,x_1,x_2), dots; pdv(f,x_2,x_1), pdv(f,x_2,2), dots; dots.v, , dots.down)$],
-    [Determinant $2 times 2$], [$mdet(a,b;c,d) = a d - b c$],
+    [Gradient af $f: RR^n -> RR$], [$grad f = vec(pdv(f, x_1), pdv(f, x_2), dots.v, pdv(f, x_n))$],
+    [Jacobi-matrix af $va(V): RR^n -> RR^m$],
+    [$vb(J)_(va(V)) = mat(pdv(V_1, x_1), dots, pdv(V_1, x_n); dots.v, , dots.v; pdv(V_m, x_1), dots, pdv(V_m, x_n))$],
+
+    [Hesse-matrix af $f: RR^n -> RR$],
+    [$vb(H)_f = mat(pdv(f, x_1, 2), pdv(f, x_1, x_2), dots; pdv(f, x_2, x_1), pdv(f, x_2, 2), dots; dots.v, , dots.down)$],
+
+    [Determinant $2 times 2$], [$mdet(a, b; c, d) = a d - b c$],
     [Sarrus $3 times 3$], [$"hovd. - antid."$ se afsnit nedenfor],
     [Indre produkt i $RR^n$], [$iprod(va(u), va(v)) = sum u_i v_i$],
     [Norm], [$norm(va(v)) = sqrt(iprod(va(v), va(v)))$],
-    [Projektion på $va(u)$], [$op("proj")_(va(u)) va(v) = iprod(va(v),va(u))/iprod(va(u),va(u)) va(u)$],
-    [Polære koord.], [$x = r cos theta, y = r sin theta, $ Jac $= r$],
-    [Cylindriske koord.], [$x = r cos theta, y = r sin theta, z = z, $ Jac $= r$],
-    [Sfæriske koord. (bogens konv.)], [$x = r sin theta cos phi, y = r sin theta sin phi, z = r cos theta,$ Jac $= r^2 sin theta$],
+    [Projektion på $va(u)$], [$op("proj")_(va(u)) va(v) = iprod(va(v), va(u))/iprod(va(u), va(u)) va(u)$],
+    [Polære koord.], [$x = r cos theta, y = r sin theta,$ Jac $= r$],
+    [Cylindriske koord.], [$x = r cos theta, y = r sin theta, z = z,$ Jac $= r$],
+    [Sfæriske koord. (bogens konv.)],
+    [$x = r sin theta cos phi, y = r sin theta sin phi, z = r cos theta,$ Jac $= r^2 sin theta$],
   )
 ]
 
@@ -258,7 +262,7 @@
 #definition(title: [Gradient])[
   For $f: RR^n -> RR$:
   $
-    grad f = vec(pdv(f,x_1), pdv(f,x_2), dots.v, pdv(f,x_n))
+    grad f = vec(pdv(f, x_1), pdv(f, x_2), dots.v, pdv(f, x_n))
   $
 
   *Tolkning:* $grad f(va(x_0))$ peger i retningen hvor $f$ vokser hurtigst.
@@ -367,7 +371,7 @@
 == Kontinuitet og differentiabilitet i højere dim.
 
 #important[
-  *Praktisk regel:* Hvis alle partielle afledte eksisterer OG er kontinuerte i et område, så er $f$ differentiabel i området ($C^1 ==> $ diff.).
+  *Praktisk regel:* Hvis alle partielle afledte eksisterer OG er kontinuerte i et område, så er $f$ differentiabel i området ($C^1 ==>$ diff.).
 ]
 
 #note-box()[
@@ -470,12 +474,12 @@
 ]
 
 #example(title: [Projektion])[
-  $va(v) = vec(1,1,1,1)$, $va(u) = vec(2,0,2,1)$.
+  $va(v) = vec(1, 1, 1, 1)$, $va(u) = vec(2, 0, 2, 1)$.
 
   $iprod(va(v), va(u)) = 1(2) + 1(0) + 1(2) + 1(1) = 5$ \
   $iprod(va(u), va(u)) = 4 + 0 + 4 + 1 = 9$
 
-  $op("proj")_(va(u)) va(v) = 5/9 vec(2,0,2,1) = vec(10/9, 0, 10/9, 5/9)$
+  $op("proj")_(va(u)) va(v) = 5/9 vec(2, 0, 2, 1) = vec(10/9, 0, 10/9, 5/9)$
 ]
 
 #lemma(name: "Projektion på underrum (ortogonal basis)")[
@@ -512,7 +516,7 @@
 ]
 
 #example(title: [Gram-Schmidt til ONB])[
-  $va(v)_1 = vec(2,0,2,1)$, $va(v)_2 = vec(-2,1,2,0)$, $va(v)_3 = vec(1,1,1,1)$.
+  $va(v)_1 = vec(2, 0, 2, 1)$, $va(v)_2 = vec(-2, 1, 2, 0)$, $va(v)_3 = vec(1, 1, 1, 1)$.
 
   *Tjek først:* $iprod(va(v)_1, va(v)_2) = -4 + 0 + 4 + 0 = 0$. ✓ Allerede ortogonale!
 
@@ -520,22 +524,22 @@
 
   *$va(w)_3$:*
   $
-    op("proj")_(va(w)_1) va(v)_3 &= 5/9 vec(2,0,2,1) = vec(10/9, 0, 10/9, 5/9) \
-    op("proj")_(va(w)_2) va(v)_3 &= 1/9 vec(-2,1,2,0) = vec(-2/9, 1/9, 2/9, 0) \
-    va(w)_3 &= vec(1,1,1,1) - vec(10/9, 0, 10/9, 5/9) - vec(-2/9, 1/9, 2/9, 0) \
-            &= vec(1/9, 8/9, -3/9, 4/9) = 1/9 vec(1, 8, -3, 4)
+    op("proj")_(va(w)_1) va(v)_3 & = 5/9 vec(2, 0, 2, 1) = vec(10/9, 0, 10/9, 5/9) \
+    op("proj")_(va(w)_2) va(v)_3 & = 1/9 vec(-2, 1, 2, 0) = vec(-2/9, 1/9, 2/9, 0) \
+                         va(w)_3 & = vec(1, 1, 1, 1) - vec(10/9, 0, 10/9, 5/9) - vec(-2/9, 1/9, 2/9, 0) \
+                                 & = vec(1/9, 8/9, -3/9, 4/9) = 1/9 vec(1, 8, -3, 4)
   $
 
   *Normer:*
   $
-    norm(va(w)_1) &= sqrt(4 + 0 + 4 + 1) = 3 \
-    norm(va(w)_2) &= sqrt(4 + 1 + 4 + 0) = 3 \
-    norm(va(w)_3) &= 1/9 sqrt(1 + 64 + 9 + 16) = sqrt(90)/9 = sqrt(10)/3
+    norm(va(w)_1) & = sqrt(4 + 0 + 4 + 1) = 3 \
+    norm(va(w)_2) & = sqrt(4 + 1 + 4 + 0) = 3 \
+    norm(va(w)_3) & = 1/9 sqrt(1 + 64 + 9 + 16) = sqrt(90)/9 = sqrt(10)/3
   $
 
   *ONB:*
   $
-    { 1/3 vec(2,0,2,1), quad 1/3 vec(-2,1,2,0), quad 1/(3 sqrt(10)) vec(1, 8, -3, 4) }
+    { 1/3 vec(2, 0, 2, 1), quad 1/3 vec(-2, 1, 2, 0), quad 1/(3 sqrt(10)) vec(1, 8, -3, 4) }
   $
 ]
 
@@ -556,7 +560,7 @@
 #note-box()[
   *Tjek om søjlerne er ortonormale:*
 
-  + Hver søjle har norm 1: $iprod(va(k)_i, va(k)_i) = 1$.
+  + Hver søjle har norm 1: $norm(k_i) = 1$.
   + Søjler er parvis ortogonale: $iprod(va(k)_i, va(k)_j) = 0$ for $i eq.not j$.
 ]
 
@@ -606,9 +610,9 @@
 
   Egenværdier: $lambda_1 = 1, lambda_2 = 3$.
 
-  *Egenvektor for $lambda = 1$:* $(vb(A) - vb(I)) va(v) = mat(1,1;1,1) va(v) = va(0) ==> va(v) = vec(1, -1)$.
+  *Egenvektor for $lambda = 1$:* $(vb(A) - vb(I)) va(v) = mat(1, 1; 1, 1) va(v) = va(0) ==> va(v) = vec(1, -1)$.
 
-  *Egenvektor for $lambda = 3$:* $(vb(A) - 3vb(I)) va(v) = mat(-1,1;1,-1) va(v) = va(0) ==> va(v) = vec(1, 1)$.
+  *Egenvektor for $lambda = 3$:* $(vb(A) - 3vb(I)) va(v) = mat(-1, 1; 1, -1) va(v) = va(0) ==> va(v) = vec(1, 1)$.
 ]
 
 == Diagonalisering
@@ -702,9 +706,9 @@
     - $lambda = 4$: $(vb(A) - 4 vb(I)) va(v) = mat(-4, -2; -2, -1) va(v) = va(0) ==> va(v) = vec(1, -2)$ (eller $vec(-1, 2)$).
     - $lambda = -1$: $(vb(A) + vb(I)) va(v) = mat(1, -2; -2, 4) va(v) = va(0) ==> va(v) = vec(2, 1)$.
 
-    *Tjek ortogonal:* $iprod(vec(1,-2), vec(2,1)) = 2 - 2 = 0$ ✓.
+    *Tjek ortogonal:* $iprod(vec(1, -2), vec(2, 1)) = 2 - 2 = 0$ ✓.
 
-    *Normér:* $norm(vec(1,-2)) = sqrt(5)$, $norm(vec(2,1)) = sqrt(5)$.
+    *Normér:* $norm(vec(1, -2)) = sqrt(5)$, $norm(vec(2, 1)) = sqrt(5)$.
 
     $
       vb(Q) = 1/sqrt(5) mat(1, 2; -2, 1) quad "(eller varianter med ombyttede søjler/fortegn)"
@@ -725,7 +729,7 @@
   - Alle $lambda_i <= 0$: *negativ semidefinit*.
   - Mindst én $> 0$ og mindst én $< 0$: *indefinit*.
 
-  *2×2 shortcut:* $vb(A) = mat(a,b;b,c)$:
+  *2×2 shortcut:* $vb(A) = mat(a, b; b, c)$:
   - Pos. def. $<==>$ $a > 0$ og $det(vb(A)) > 0$.
   - Neg. def. $<==>$ $a < 0$ og $det(vb(A)) > 0$.
   - Indefinit $<==>$ $det(vb(A)) < 0$.
@@ -841,7 +845,7 @@
   *Udskrevet for 2D ($va(x)_0 = (a, b)$):*
   $
     P_2 &= f(a,b) + pdv(f, x_1)(a,b)(x_1 - a) + pdv(f, x_2)(a,b)(x_2 - b) \
-        &+ 1/2 [pdv(f, x_1, 2)(a,b)(x_1 - a)^2 + 2 pdv(f, x_1, x_2)(a,b)(x_1 - a)(x_2 - b) + pdv(f, x_2, 2)(a,b)(x_2 - b)^2]
+    &+ 1/2 [pdv(f, x_1, 2)(a,b)(x_1 - a)^2 + 2 pdv(f, x_1, x_2)(a,b)(x_1 - a)(x_2 - b) + pdv(f, x_2, 2)(a,b)(x_2 - b)^2]
   $
 ]
 
@@ -891,8 +895,8 @@
 
     *Trin 4 — sæt ind:*
     $
-      P_2(x_1, x_2) &= 1 + 1 dot x_1 + 0 dot x_2 + 1/2 [1 dot x_1^2 + 2 dot 0 dot x_1 x_2 + (-1) dot x_2^2] \
-                    &= 1 + x_1 + 1/2 x_1^2 - 1/2 x_2^2
+      P_2(x_1, x_2) & = 1 + 1 dot x_1 + 0 dot x_2 + 1/2 [1 dot x_1^2 + 2 dot 0 dot x_1 x_2 + (-1) dot x_2^2] \
+                    & = 1 + x_1 + 1/2 x_1^2 - 1/2 x_2^2
     $
 
     *Tjek:* $e^x = 1 + x + x^2/2 + dots$ og $cos y = 1 - y^2/2 + dots$. Produkt op til grad 2: $(1 + x + x^2/2)(1 - y^2/2) approx 1 + x + x^2/2 - y^2/2 - dots$. ✓
@@ -1205,8 +1209,8 @@
     $abs(x_1) = abs(r cos theta) = r abs(cos theta)$.
 
     $
-      integral.double_A abs(x_1) dd(x_1, x_2) &= integral_0^pi integral_0^2 r abs(cos theta) dot r dd(r) dd(theta) \
-                                       &= (integral_0^2 r^2 dd(r)) (integral_0^pi abs(cos theta) dd(theta))
+      integral.double_A abs(x_1) dd(x_1, x_2) & = integral_0^pi integral_0^2 r abs(cos theta) dot r dd(r) dd(theta) \
+                                              & = (integral_0^2 r^2 dd(r)) (integral_0^pi abs(cos theta) dd(theta))
     $
 
     $integral_0^2 r^2 dd(r) = 8/3$.
@@ -1380,7 +1384,7 @@
   *Fremgangsmåde — Linjeintegral af skalar funktion:*
 
   + Find $va(r)'(u)$ (komponentvis afledet).
-  + Find $norm(va(r)'(u)) = sqrt(sum (r_i'(u))^2)$.
+  + Find $norm(va(r)'(u)) = sqrt(sum (r_i '(u))^2)$.
   + Beregn $f(va(r)(u))$ (indsæt parametrisering i $f$).
   + Integrér $f(va(r)(u)) norm(va(r)'(u))$ fra $a$ til $b$.
 ]
@@ -1550,16 +1554,16 @@
     $
 
     $
-      iprod(va(V)(va(r)(t)), va(r)'(t)) &= (2 t^2 x y + cos(t x)) x + (t^2 x^2 + 1) y \
-                                        &= 2 t^2 x^2 y + x cos(t x) + t^2 x^2 y + y \
-                                        &= 3 t^2 x^2 y + y + x cos(t x)
+      iprod(va(V)(va(r)(t)), va(r)'(t)) & = (2 t^2 x y + cos(t x)) x + (t^2 x^2 + 1) y \
+                                        & = 2 t^2 x^2 y + x cos(t x) + t^2 x^2 y + y \
+                                        & = 3 t^2 x^2 y + y + x cos(t x)
     $
 
     Integrér ifht. $t$ fra 0 til 1:
     $
-      f(x, y) &= integral_0^1 (3 t^2 x^2 y + y + x cos(t x)) dd(t) \
-              &= x^2 y [t^3]_0^1 + y [t]_0^1 + [sin(t x)]_0^1 \
-              &= x^2 y + y + sin(x)
+      f(x, y) & = integral_0^1 (3 t^2 x^2 y + y + x cos(t x)) dd(t) \
+              & = x^2 y [t^3]_0^1 + y [t]_0^1 + [sin(t x)]_0^1 \
+              & = x^2 y + y + sin(x)
     $
 
     *Tjek:* $grad f = vec(2 x y + cos x, x^2 + 1) = va(V)$ ✓
@@ -1702,7 +1706,7 @@
     table.header([*Sætning/Lemma*], [*Hvad det siger*]),
     [Definition 3.3.X], [Gradient definition],
     [Definition 3.5.1], [Hesse-matrix definition],
-    [Sætning 3.6.5 (Schwarz)], [$C^2 ==> $ Hesse symmetrisk],
+    [Sætning 3.6.5 (Schwarz)], [$C^2 ==>$ Hesse symmetrisk],
     [Lemma 4.3.1], [Taylor's formel 1D med $xi$-form],
     [Sætning 4.3.3], [Taylor's theorem — fejlvurdering i 1D],
     [Definition 4.5.1], [Taylor-polynomium 2. orden multivariate],
