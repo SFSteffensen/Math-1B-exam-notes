@@ -38,27 +38,35 @@
 
 == Vigtige formler — Lommekort
 
-#align(center)[
+#align(
+  center,
+)[
   #table(
     columns: 2,
     stroke: 0.5pt,
     inset: 6pt,
     fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
     table.header([*Hvad*], [*Formel*]),
-    [Gradient af $f: RR^n -> RR$], [$grad f = vec(pdv(f, x_1), pdv(f, x_2), dots.v, pdv(f, x_n))$],
+    [Gradient af $f: RR^n -> RR$],
+    [$grad f = vec(pdv(f, x_1), pdv(f, x_2), dots.v, pdv(f, x_n))$],
     [Jacobi-matrix af $va(V): RR^n -> RR^m$],
-    [$vb(J)_(va(V)) = mat(pdv(V_1, x_1), dots, pdv(V_1, x_n); dots.v, , dots.v; pdv(V_m, x_1), dots, pdv(V_m, x_n))$],
-
+    [$vb(J)_(va(V)) = mat(pdv(V_1, x_1), dots, pdv(V_1, x_n);dots.v, , dots.v;pdv(V_m, x_1), dots, pdv(V_m, x_n))$],
     [Hesse-matrix af $f: RR^n -> RR$],
-    [$vb(H)_f = mat(pdv(f, x_1, 2), pdv(f, x_1, x_2), dots; pdv(f, x_2, x_1), pdv(f, x_2, 2), dots; dots.v, , dots.down)$],
-
-    [Determinant $2 times 2$], [$mdet(a, b; c, d) = a d - b c$],
-    [Sarrus $3 times 3$], [$"hovd. - antid."$ se afsnit nedenfor],
-    [Indre produkt i $RR^n$], [$iprod(va(u), va(v)) = sum u_i v_i$],
-    [Norm], [$norm(va(v)) = sqrt(iprod(va(v), va(v)))$],
-    [Projektion på $va(u)$], [$op("proj")_(va(u)) va(v) = iprod(va(v), va(u))/iprod(va(u), va(u)) va(u)$],
-    [Polære koord.], [$x = r cos theta, y = r sin theta,$ Jac $= r$],
-    [Cylindriske koord.], [$x = r cos theta, y = r sin theta, z = z,$ Jac $= r$],
+    [$vb(H)_f = mat(pdv(f, x_1, 2), pdv(f, x_1, x_2), dots;pdv(f, x_2, x_1), pdv(f, x_2, 2), dots;dots.v, , dots.down)$],
+    [Determinant $2 times 2$],
+    [$mdet(a, b;c, d) = a d - b c$],
+    [Sarrus $3 times 3$],
+    [$"hovd. - antid."$ se afsnit nedenfor],
+    [Indre produkt i $RR^n$],
+    [$iprod(va(u), va(v)) = sum u_i v_i$],
+    [Norm],
+    [$norm(va(v)) = sqrt(iprod(va(v), va(v)))$],
+    [Projektion på $va(u)$],
+    [$op("proj")_(va(u)) va(v) = iprod(va(v), va(u))/iprod(va(u), va(u)) va(u)$],
+    [Polære koord.],
+    [$x = r cos theta, y = r sin theta,$ Jac $= r$],
+    [Cylindriske koord.],
+    [$x = r cos theta, y = r sin theta, z = z,$ Jac $= r$],
     [Sfæriske koord. (bogens konv.)],
     [$x = r sin theta cos phi, y = r sin theta sin phi, z = r cos theta,$ Jac $= r^2 sin theta$],
   )
@@ -68,7 +76,7 @@
 
 #important[
   $
-    mdet(a_1, a_2, a_3; b_1, b_2, b_3; c_1, c_2, c_3) = underbrace(a_1 b_2 c_3 + a_2 b_3 c_1 + a_3 b_1 c_2, "hoveddiagonaler ned") - underbrace(a_3 b_2 c_1 + a_1 b_3 c_2 + a_2 b_1 c_3, "antidiagonaler op")
+    mdet(a_1, a_2, a_3;b_1, b_2, b_3;c_1, c_2, c_3) = underbrace(a_1 b_2 c_3 + a_2 b_3 c_1 + a_3 b_1 c_2, "hoveddiagonaler ned") - underbrace(a_3 b_2 c_1 + a_1 b_3 c_2 + a_2 b_1 c_3, "antidiagonaler op")
   $
 
   *Trick:* Skriv de to første søjler igen til højre, tegn 3 diagonaler ned (+) og 3 op ($-$).
@@ -83,16 +91,46 @@
     inset: 5pt,
     fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
     table.header([*$f(x)$*], [*$f'(x)$*], [*$f(x)$*], [*$integral f dd(x)$*]),
-    [$x^n$], [$n x^(n-1)$], [$x^n$ ($n eq.not -1$)], [$x^(n+1)/(n+1)$],
-    [$e^x$], [$e^x$], [$e^x$], [$e^x$],
-    [$e^(a x)$], [$a e^(a x)$], [$e^(a x)$], [$1/a e^(a x)$],
-    [$ln(x)$], [$1/x$], [$1/x$], [$ln|x|$],
-    [$sin(x)$], [$cos(x)$], [$sin(x)$], [$-cos(x)$],
-    [$cos(x)$], [$-sin(x)$], [$cos(x)$], [$sin(x)$],
-    [$tan(x)$], [$1/cos^2(x)$], [$1/cos^2(x)$], [$tan(x)$],
-    [$arctan(x)$], [$1/(1+x^2)$], [$1/(1+x^2)$], [$arctan(x)$],
-    [$arcsin(x)$], [$1/sqrt(1-x^2)$], [$1/sqrt(1-x^2)$], [$arcsin(x)$],
-    [$abs(x)$], [$"sign"(x)$], [$sqrt(a^2+x^2)$], [$x/2 sqrt(a^2+x^2) + a^2/2 ln(x + sqrt(a^2+x^2))$],
+    [$x^n$],
+    [$n x^(n-1)$],
+    [$x^n$ ($n eq.not -1$)],
+    [$x^(n+1)/(n+1)$],
+    [$e^x$],
+    [$e^x$],
+    [$e^x$],
+    [$e^x$],
+    [$e^(a x)$],
+    [$a e^(a x)$],
+    [$e^(a x)$],
+    [$1/a e^(a x)$],
+    [$ln(x)$],
+    [$1/x$],
+    [$1/x$],
+    [$ln|x|$],
+    [$sin(x)$],
+    [$cos(x)$],
+    [$sin(x)$],
+    [$-cos(x)$],
+    [$cos(x)$],
+    [$-sin(x)$],
+    [$cos(x)$],
+    [$sin(x)$],
+    [$tan(x)$],
+    [$1/cos^2(x)$],
+    [$1/cos^2(x)$],
+    [$tan(x)$],
+    [$arctan(x)$],
+    [$1/(1+x^2)$],
+    [$1/(1+x^2)$],
+    [$arctan(x)$],
+    [$arcsin(x)$],
+    [$1/sqrt(1-x^2)$],
+    [$1/sqrt(1-x^2)$],
+    [$arcsin(x)$],
+    [$abs(x)$],
+    [$"sign"(x)$],
+    [$sqrt(a^2+x^2)$],
+    [$x/2 sqrt(a^2+x^2) + a^2/2 ln(x + sqrt(a^2+x^2))$],
   )
 ]
 
@@ -121,7 +159,9 @@
   Dvs. både venstre- og højre-grænseværdi eksisterer og er lig med funktionsværdien.
 ]
 
-#definition(title: [Stykkevis defineret funktion (piecewise)])[
+#definition(
+  title: [Stykkevis defineret funktion (piecewise)],
+)[
   En funktion givet ved forskellige udtryk på forskellige intervaller. Kontinuitet skal undersøges på *grænsepunkterne* mellem stykker.
 ]
 
@@ -136,10 +176,13 @@
     - Ellers → ikke kontinuert.
 ]
 
-#example(title: [Stykkevis kontinuitet])[
+#example(
+  title: [Stykkevis kontinuitet],
+)[
   Er $f(x) = cases(x^2 - x + 3 & "," x <= 2, a x + b & "," x > 2)$ kontinuert i $x_0 = 2$?
 
-  #solution()[
+  #solution(
+    )[
     *Trin 1:* $f(2) = 2^2 - 2 + 3 = 5$.
 
     *Trin 2:* Venstre-grænse: $lim_(x -> 2^-) (x^2 - x + 3) = 5$.
@@ -152,7 +195,8 @@
   ]
 ]
 
-#math-hint()[
+#math-hint(
+  )[
   *MC-trick:* For "hvilke værdier gør $f$ IKKE kontinuert" — beregn $2a + b$ for hver mulighed og find dem hvor $eq.not f(x_0)$.
 ]
 
@@ -167,7 +211,9 @@
   *Bemærk:* Differentiabel $==>$ kontinuert (men ikke omvendt).
 ]
 
-#definition(title: [Epsilon-definition (Math 1a bog)])[
+#definition(
+  title: [Epsilon-definition (Math 1a bog)],
+)[
   $f$ er differentiabel i $x_0$ hvis der findes $c in RR$ og $epsilon: RR -> RR$ med $lim_(h->0) epsilon(h) = 0$ så:
   $
     f(x_0 + h) = f(x_0) + c h + epsilon(h) h quad forall h
@@ -285,14 +331,13 @@
 
 == Jacobi-matrix
 
-#definition(title: [Jacobi-matrix])[
+#definition(
+  title: [Jacobi-matrix],
+)[
   For $va(V): RR^n -> RR^m$ med $va(V) = (V_1, V_2, dots, V_m)$:
   $
     vb(J)_(va(V)) = mat(
-      pdv(V_1, x_1), pdv(V_1, x_2), dots, pdv(V_1, x_n);
-      pdv(V_2, x_1), pdv(V_2, x_2), dots, pdv(V_2, x_n);
-      dots.v, dots.v, , dots.v;
-      pdv(V_m, x_1), pdv(V_m, x_2), dots, pdv(V_m, x_n);
+      pdv(V_1, x_1), pdv(V_1, x_2), dots, pdv(V_1, x_n);pdv(V_2, x_1), pdv(V_2, x_2), dots, pdv(V_2, x_n);dots.v, dots.v, , dots.v;pdv(V_m, x_1), pdv(V_m, x_2), dots, pdv(V_m, x_n);
     )
   $
 
@@ -311,11 +356,7 @@
   $va(V)(x_1, x_2, x_3) = vec(x_1 - 2 x_2, x_1 - x_2 + 3 x_3, -x_1 + x_3)$.
 
   $
-    vb(J)_(va(V)) = mat(
-      1, -2, 0;
-      1, -1, 3;
-      -1, 0, 1
-    )
+    vb(J)_(va(V)) = mat(1, -2, 0;1, -1, 3;-1, 0, 1)
   $
 
   Bemærk: $vb(J)$ er konstant her fordi $va(V)$ er lineær.
@@ -323,14 +364,12 @@
 
 == Hesse-matrix
 
-#definition(title: [Hesse-matrix])[
+#definition(
+  title: [Hesse-matrix],
+)[
   For $f: RR^n -> RR$:
   $
-    vb(H)_f = mat(
-      pdv(f, x_1, 2), pdv(f, x_1, x_2), dots;
-      pdv(f, x_2, x_1), pdv(f, x_2, 2), dots;
-      dots.v, , dots.down
-    )
+    vb(H)_f = mat(pdv(f, x_1, 2), pdv(f, x_1, x_2), dots;pdv(f, x_2, x_1), pdv(f, x_2, 2), dots;dots.v, , dots.down)
   $
 
   Element $(i,j)$: $pdv(f, x_i, x_j) = pdv(, x_i) (pdv(f, x_j))$.
@@ -350,7 +389,7 @@
   + Tjek symmetri: $pdv(f, x_2, x_1)$ skal være den samme (kontrol).
 
   $
-    vb(H)_f = mat(pdv(f, x_1, 2), pdv(f, x_1, x_2); pdv(f, x_2, x_1), pdv(f, x_2, 2))
+    vb(H)_f = mat(pdv(f, x_1, 2), pdv(f, x_1, x_2);pdv(f, x_2, x_1), pdv(f, x_2, 2))
   $
 ]
 
@@ -364,7 +403,7 @@
   - $pdv(f, x_1, x_2) = 2$
 
   $
-    vb(H)_f = mat(2, 2; 2, -10)
+    vb(H)_f = mat(2, 2;2, -10)
   $
 ]
 
@@ -391,7 +430,8 @@
   *Matrix-produkt.* Pas på dimensioner og rækkefølge!
 ]
 
-#math-hint()[
+#math-hint(
+  )[
   *MC-trick til Jacobi-determinant:*
 
   Hvis $va(V)$ er lineær, dvs. $va(V)(va(x)) = vb(A) va(x) + va(b)$, så er $vb(J)_(va(V)) = vb(A)$ (konstant). Brug Sarrus eller cofaktor-udvidelse for $det$.
@@ -407,7 +447,9 @@
 
 == Indre produkt og norm
 
-#definition(title: [Definition 2.1.2 — Indre produkt på $RR^n$ og $CC^n$])[
+#definition(
+  title: [Definition 2.1.2 — Indre produkt på $RR^n$ og $CC^n$],
+)[
   *Standard indre produkt på $RR^n$:* For $va(x), va(y) in RR^n$:
   $
     iprod(va(x), va(y)) = va(x) dot va(y) = x_1 y_1 + x_2 y_2 + dots + x_n y_n = sum_(k=1)^n x_k y_k
@@ -458,7 +500,9 @@
 
 == Projektion
 
-#lemma(name: "Projektion på vektor")[
+#lemma(
+  name: "Projektion på vektor",
+)[
   Projektionen af $va(v)$ på $va(u)$ (én vektor):
   $
     op("proj")_(va(u)) va(v) = iprod(va(v), va(u))/iprod(va(u), va(u)) va(u) = iprod(va(v), va(u))/norm(va(u))^2 va(u)
@@ -503,7 +547,8 @@
   Begge giver samme slut-ONB.
 ]
 
-#note-box()[
+#note-box(
+  )[
   *Fremgangsmåde — Gram-Schmidt (praktisk version):*
 
   + $va(w)_1 = va(v)_1$ (uændret).
@@ -526,7 +571,7 @@
   $
     op("proj")_(va(w)_1) va(v)_3 & = 5/9 vec(2, 0, 2, 1) = vec(10/9, 0, 10/9, 5/9) \
     op("proj")_(va(w)_2) va(v)_3 & = 1/9 vec(-2, 1, 2, 0) = vec(-2/9, 1/9, 2/9, 0) \
-                         va(w)_3 & = vec(1, 1, 1, 1) - vec(10/9, 0, 10/9, 5/9) - vec(-2/9, 1/9, 2/9, 0) \
+    va(w)_3                      & = vec(1, 1, 1, 1) - vec(10/9, 0, 10/9, 5/9) - vec(-2/9, 1/9, 2/9, 0) \
                                  & = vec(1/9, 8/9, -3/9, 4/9) = 1/9 vec(1, 8, -3, 4)
   $
 
@@ -583,7 +628,9 @@
 
 == Egenværdier og egenvektorer
 
-#definition(title: [Egenværdi/Egenvektor])[
+#definition(
+  title: [Egenværdi/Egenvektor],
+)[
   For $vb(A) in FF^(n times n)$: $lambda in FF$ er *egenværdi* med tilhørende *egenvektor* $va(v) eq.not va(0)$ hvis:
   $
     vb(A) va(v) = lambda va(v)
@@ -603,21 +650,25 @@
   + Egenrummet $E_lambda = ker(vb(A) - lambda vb(I))$.
 ]
 
-#example(title: [Egenværdier af $2 times 2$])[
-  $vb(A) = mat(2, 1; 1, 2)$.
+#example(
+  title: [Egenværdier af $2 times 2$],
+)[
+  $vb(A) = mat(2, 1;1, 2)$.
 
-  $p(lambda) = mdet(2-lambda, 1; 1, 2-lambda) = (2-lambda)^2 - 1 = lambda^2 - 4 lambda + 3 = (lambda-1)(lambda-3)$.
+  $p(lambda) = mdet(2-lambda, 1;1, 2-lambda) = (2-lambda)^2 - 1 = lambda^2 - 4 lambda + 3 = (lambda-1)(lambda-3)$.
 
   Egenværdier: $lambda_1 = 1, lambda_2 = 3$.
 
-  *Egenvektor for $lambda = 1$:* $(vb(A) - vb(I)) va(v) = mat(1, 1; 1, 1) va(v) = va(0) ==> va(v) = vec(1, -1)$.
+  *Egenvektor for $lambda = 1$:* $(vb(A) - vb(I)) va(v) = mat(1, 1;1, 1) va(v) = va(0) ==> va(v) = vec(1, -1)$.
 
-  *Egenvektor for $lambda = 3$:* $(vb(A) - 3vb(I)) va(v) = mat(-1, 1; 1, -1) va(v) = va(0) ==> va(v) = vec(1, 1)$.
+  *Egenvektor for $lambda = 3$:* $(vb(A) - 3vb(I)) va(v) = mat(-1, 1;1, -1) va(v) = va(0) ==> va(v) = vec(1, 1)$.
 ]
 
 == Diagonalisering
 
-#definition(title: [Diagonaliserbar])[
+#definition(
+  title: [Diagonaliserbar],
+)[
   $vb(A)$ er *diagonaliserbar* hvis $vb(A) = vb(P) vb(D) vb(P)^(-1)$ hvor $vb(D)$ er diagonal med egenværdier, og $vb(P)$ har egenvektorer som søjler.
 ]
 
@@ -659,10 +710,12 @@
 
 == Kvadratiske former
 
-#definition(title: [Kvadratisk form])[
+#definition(
+  title: [Kvadratisk form],
+)[
   En *kvadratisk form* er $q: RR^n -> RR$ givet ved $q(va(x)) = va(x)^T vb(A) va(x)$ hvor $vb(A)$ er symmetrisk.
 
-  *I 2D:* $q(x_1, x_2) = a_(11) x_1^2 + 2 a_(12) x_1 x_2 + a_(22) x_2^2$ med $vb(A) = mat(a_(11), a_(12); a_(12), a_(22))$.
+  *I 2D:* $q(x_1, x_2) = a_(11) x_1^2 + 2 a_(12) x_1 x_2 + a_(22) x_2^2$ med $vb(A) = mat(a_(11), a_(12);a_(12), a_(22))$.
 
   *Bemærk:* Blandet led $b x_1 x_2$ → $a_(12) = a_(21) = b/2$.
 ]
@@ -675,7 +728,8 @@
   hvor $tilde(va(x)) = vb(Q)^T va(x)$ ($vb(Q)$ fra orthogonal diagonalisering).
 ]
 
-#note-box()[
+#note-box(
+  )[
   *Fremgangsmåde — Reducer kvadratisk form $q(x_1, x_2)$:*
 
   + Find symmetrisk matrix $vb(A)$ således $q_2(va(x)) = va(x)^T vb(A) va(x)$ (den rene 2.-grads del; lineære led tager man for sig).
@@ -688,30 +742,33 @@
   + Saml til "completing the square" form $a(tilde(x)_1 - b)^2 + c(tilde(x)_2 - d)^2 + dots$.
 ]
 
-#example(title: [Reducer kvadratisk form])[
+#example(
+  title: [Reducer kvadratisk form],
+)[
   $q(x_1, x_2) = -4 x_1 x_2 + 3 x_2^2 - 4 x_1 + 2 x_2 + 2$.
 
-  #solution()[
+  #solution(
+    )[
     *2.-grads del:* $-4 x_1 x_2 + 3 x_2^2$.
 
-    Symmetrisk matrix: $vb(A) = mat(0, -2; -2, 3)$ (blandet led $-4 x_1 x_2 ==> a_(12) = -2$).
+    Symmetrisk matrix: $vb(A) = mat(0, -2;-2, 3)$ (blandet led $-4 x_1 x_2 ==> a_(12) = -2$).
 
     *Egenværdier:*
     $
-      det(vb(A) - lambda vb(I)) = mdet(-lambda, -2; -2, 3-lambda) = -lambda(3-lambda) - 4 = lambda^2 - 3 lambda - 4 = (lambda-4)(lambda+1)
+      det(vb(A) - lambda vb(I)) = mdet(-lambda, -2;-2, 3-lambda) = -lambda(3-lambda) - 4 = lambda^2 - 3 lambda - 4 = (lambda-4)(lambda+1)
     $
     $==> lambda_1 = 4, lambda_2 = -1$.
 
     *Egenvektorer:*
-    - $lambda = 4$: $(vb(A) - 4 vb(I)) va(v) = mat(-4, -2; -2, -1) va(v) = va(0) ==> va(v) = vec(1, -2)$ (eller $vec(-1, 2)$).
-    - $lambda = -1$: $(vb(A) + vb(I)) va(v) = mat(1, -2; -2, 4) va(v) = va(0) ==> va(v) = vec(2, 1)$.
+    - $lambda = 4$: $(vb(A) - 4 vb(I)) va(v) = mat(-4, -2;-2, -1) va(v) = va(0) ==> va(v) = vec(1, -2)$ (eller $vec(-1, 2)$).
+    - $lambda = -1$: $(vb(A) + vb(I)) va(v) = mat(1, -2;-2, 4) va(v) = va(0) ==> va(v) = vec(2, 1)$.
 
     *Tjek ortogonal:* $iprod(vec(1, -2), vec(2, 1)) = 2 - 2 = 0$ ✓.
 
     *Normér:* $norm(vec(1, -2)) = sqrt(5)$, $norm(vec(2, 1)) = sqrt(5)$.
 
     $
-      vb(Q) = 1/sqrt(5) mat(1, 2; -2, 1) quad "(eller varianter med ombyttede søjler/fortegn)"
+      vb(Q) = 1/sqrt(5) mat(1, 2;-2, 1) quad "(eller varianter med ombyttede søjler/fortegn)"
     $
 
     *Verifikation MC-style:* Test om søjlerne er egenvektorer for $vb(A)$ med rigtige egenværdier.
@@ -729,7 +786,7 @@
   - Alle $lambda_i <= 0$: *negativ semidefinit*.
   - Mindst én $> 0$ og mindst én $< 0$: *indefinit*.
 
-  *2×2 shortcut:* $vb(A) = mat(a, b; b, c)$:
+  *2×2 shortcut:* $vb(A) = mat(a, b;b, c)$:
   - Pos. def. $<==>$ $a > 0$ og $det(vb(A)) > 0$.
   - Neg. def. $<==>$ $a < 0$ og $det(vb(A)) > 0$.
   - Indefinit $<==>$ $det(vb(A)) < 0$.
@@ -745,7 +802,9 @@
 
 == Taylor-polynomium i 1D
 
-#definition(title: [Taylor-polynomium af grad $n$ i $x_0$])[
+#definition(
+  title: [Taylor-polynomium af grad $n$ i $x_0$],
+)[
   For $f$ $n$ gange differentiabel i $x_0$:
   $
     P_n(x) = sum_(k=0)^n (f^((k))(x_0))/(k!) (x - x_0)^k = f(x_0) + f'(x_0)(x-x_0) + (f''(x_0))/2 (x-x_0)^2 + dots
@@ -754,14 +813,18 @@
   *Specialtilfælde — Maclaurin ($x_0 = 0$):* $P_n(x) = sum_(k=0)^n (f^((k))(0))/(k!) x^k$.
 ]
 
-#lemma(name: "Lemma 4.3.1 — Taylor's formel")[
+#lemma(
+  name: "Lemma 4.3.1 — Taylor's formel",
+)[
   Lad $f: I -> RR$ være vilkårligt ofte differentiabel, $x_0 in I$. For ethvert $x in I$ findes et $xi$ mellem $x$ og $x_0$ således at:
   $
     R_K(x) = f(x) - P_K(x) = (f^((K+1))(xi))/((K+1)!) (x - x_0)^(K+1)
   $
 ]
 
-#lemma(name: "Sætning 4.3.3 — Taylor's theorem (fejlvurdering)")[
+#lemma(
+  name: "Sætning 4.3.3 — Taylor's theorem (fejlvurdering)",
+)[
   Hvis $abs(f^((k))(x)) <= C$ for alle $k in NN$ og alle $x in I$:
   $
     abs(R_K(x)) = abs(f(x) - P_K(x)) <= C/((K+1)!) abs(x - x_0)^(K+1)
@@ -804,7 +867,9 @@
   ]
 ]
 
-#example(title: [Fejlvurdering])[
+#example(
+  title: [Fejlvurdering],
+)[
   Givet $P_2$ ovenfor med udviklingspunkt $x_0 = 1$, og $abs(f^((3))(x)) < 5$. Vurdér fejlen ved tilnærmelsen $f(0) approx P_2(0)$.
 
   #solution()[
@@ -825,18 +890,26 @@
     inset: 6pt,
     fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
     table.header([*Funktion*], [*Maclaurin-række (udvikling om $0$)*]),
-    [$e^x$], [$sum_(k=0)^infinity x^k/k! = 1 + x + x^2/2 + x^3/6 + dots$],
-    [$sin(x)$], [$x - x^3/6 + x^5/120 - dots$],
-    [$cos(x)$], [$1 - x^2/2 + x^4/24 - dots$],
-    [$ln(1+x)$], [$x - x^2/2 + x^3/3 - x^4/4 + dots$ ($abs(x) < 1$)],
-    [$1/(1-x)$], [$1 + x + x^2 + x^3 + dots$ ($abs(x) < 1$)],
-    [$(1+x)^alpha$], [$1 + alpha x + (alpha(alpha-1))/2 x^2 + dots$],
+    [$e^x$],
+    [$sum_(k=0)^infinity x^k/k! = 1 + x + x^2/2 + x^3/6 + dots$],
+    [$sin(x)$],
+    [$x - x^3/6 + x^5/120 - dots$],
+    [$cos(x)$],
+    [$1 - x^2/2 + x^4/24 - dots$],
+    [$ln(1+x)$],
+    [$x - x^2/2 + x^3/3 - x^4/4 + dots$ ($abs(x) < 1$)],
+    [$1/(1-x)$],
+    [$1 + x + x^2 + x^3 + dots$ ($abs(x) < 1$)],
+    [$(1+x)^alpha$],
+    [$1 + alpha x + (alpha(alpha-1))/2 x^2 + dots$],
   )
 ]
 
 == Taylor i 2D (multivariable)
 
-#definition(title: [Definition 4.5.1 — Taylor-polynomium af 2. orden, 2 variable])[
+#definition(
+  title: [Definition 4.5.1 — Taylor-polynomium af 2. orden, 2 variable],
+)[
   For $f: U -> RR$ ($U$ åben i $RR^n$) med alle partielle afledte af 1. og 2. orden i $va(x)_0 in U$:
   $
     P_2(va(x)) = f(va(x)_0) + iprod((va(x) - va(x)_0), grad f(va(x)_0)) + 1/2 iprod((va(x) - va(x)_0), vb(H)_f(va(x)_0)(va(x) - va(x)_0))
@@ -845,7 +918,7 @@
   *Udskrevet for 2D ($va(x)_0 = (a, b)$):*
   $
     P_2 &= f(a,b) + pdv(f, x_1)(a,b)(x_1 - a) + pdv(f, x_2)(a,b)(x_2 - b) \
-    &+ 1/2 [pdv(f, x_1, 2)(a,b)(x_1 - a)^2 + 2 pdv(f, x_1, x_2)(a,b)(x_1 - a)(x_2 - b) + pdv(f, x_2, 2)(a,b)(x_2 - b)^2]
+        &+ 1/2 [pdv(f, x_1, 2)(a,b)(x_1 - a)^2 + 2 pdv(f, x_1, x_2)(a,b)(x_1 - a)(x_2 - b) + pdv(f, x_2, 2)(a,b)(x_2 - b)^2]
   $
 ]
 
@@ -878,10 +951,13 @@
   *I praksis (MC):* Tjek hver mulighed: beregn $f(a,b)$ og $grad f(a,b)$ og se om $P_2(a, b) = f(a, b)$.
 ]
 
-#example(title: [Find $P_2$ fra $f$ (forward direction)])[
+#example(
+  title: [Find $P_2$ fra $f$ (forward direction)],
+)[
   $f(x_1, x_2) = e^(x_1) cos(x_2)$. Find $P_2$ i $(0, 0)$.
 
-  #solution()[
+  #solution(
+    )[
     *Trin 1:* $f(0, 0) = e^0 cos 0 = 1$.
 
     *Trin 2 — gradient:*
@@ -903,10 +979,13 @@
   ]
 ]
 
-#example(title: [Find udviklingspunkt fra $P_2$ (omvendt)])[
+#example(
+  title: [Find udviklingspunkt fra $P_2$ (omvendt)],
+)[
   $f(x_1, x_2) = 8/(x_1^2 + x_2^2 + 2)$, $P_2 = -x_1 x_2 - 2 x_1 + 2 x_2 + 5$.
 
-  #solution()[
+  #solution(
+    )[
     *MC-strategi:* Tjek $f(a,b) = P_2(a,b)$ for hver kandidat.
 
     Prøv $(1, -1)$: $f(1, -1) = 8/(1 + 1 + 2) = 2$. $P_2(1, -1) = -(1)(-1) - 2(1) + 2(-1) + 5 = 1 - 2 - 2 + 5 = 2$. ✓
@@ -921,7 +1000,8 @@
   ]
 ]
 
-#math-hint()[
+#math-hint(
+  )[
   *Kæderegel via Maclaurin:* Hvis $f(x) = g(h(x))$ og du kender $g$'s Maclaurin-række, substituér $h(x)$. F.eks. $e^(x^2) = 1 + x^2 + x^4/2 + dots$.
 
   *Pas på koefficienter:* Hvis $P_2(x) = a + b x + c x^2$ i $x_0 = 0$, så er $f(0) = a$, $f'(0) = b$, $f''(0) = 2 c$ (ikke $c$!).
@@ -973,7 +1053,9 @@
 
 == Klassifikation via Hesse-matrix
 
-#theorem(title: "Sætning 5.2.4 — Anden-ordens partiel afledet-test")[
+#theorem(
+  title: "Sætning 5.2.4 — Anden-ordens partiel afledet-test",
+)[
   Lad $va(x)_0$ være et stationært punkt for $C^2$-funktionen $f: U -> RR$ ($U$ åben i $RR^n$). Lad $vb(H) = vb(H)_f(va(x)_0)$. Da gælder:
 
   + *Alle egenværdier $> 0$* (positiv definit) $==>$ $va(x)_0$ er *strikt lokalt minimum*.
@@ -987,7 +1069,7 @@
 #important[
   *2D-shortcut (bevises ud fra Sætning 5.2.4):*
 
-  Beregn $vb(H) = mat(A, B; B, C)$. Lad $det(vb(H)) = A C - B^2$.
+  Beregn $vb(H) = mat(A, B;B, C)$. Lad $det(vb(H)) = A C - B^2$.
 
   - $det(vb(H)) > 0$ og $A > 0$ → *lokalt minimum* (begge egenværdier $> 0$).
   - $det(vb(H)) > 0$ og $A < 0$ → *lokalt maksimum* (begge egenværdier $< 0$).
@@ -999,11 +1081,14 @@
   *Hvilken at bruge på eksamen:* I 2D bruges shortcut'en typisk — men hvis spørgsmålet beder om "klassificér via egenværdier", så regn egenværdier direkte.
 ]
 
-#example(title: [Klassifikation (2D)])[
+#example(
+  title: [Klassifikation (2D)],
+)[
   Fortsættelse: $f(x_1, x_2) = x_1^2 + 2 x_1 x_2 - 5 x_2^2 + 14 x_2$ i $(-7/6, 7/6)$.
 
-  #solution()[
-    $vb(H)_f = mat(2, 2; 2, -10)$ (konstant her).
+  #solution(
+    )[
+    $vb(H)_f = mat(2, 2;2, -10)$ (konstant her).
 
     *Shortcut:* $det(vb(H)_f) = 2 dot (-10) - 2 dot 2 = -20 - 4 = -24 < 0$.
 
@@ -1013,10 +1098,13 @@
   ]
 ]
 
-#example(title: [Klassifikation (3D — via egenværdier)])[
-  Antag at stationært punkt $va(x)_0$ er fundet, og $vb(H)_f(va(x)_0) = mat(2, 0, 0; 0, 3, 0; 0, 0, 1)$.
+#example(
+  title: [Klassifikation (3D — via egenværdier)],
+)[
+  Antag at stationært punkt $va(x)_0$ er fundet, og $vb(H)_f(va(x)_0) = mat(2, 0, 0;0, 3, 0;0, 0, 1)$.
 
-  #solution()[
+  #solution(
+    )[
     Matricen er diagonal, så egenværdierne er bare $lambda_1 = 2, lambda_2 = 3, lambda_3 = 1$ — alle $> 0$.
 
     *Konklusion:* $vb(H)_f(va(x)_0)$ er positiv definit, så $va(x)_0$ er et *strikt lokalt minimum* iflg. Sætning 5.2.4.
@@ -1036,7 +1124,9 @@
 
 == Optimering på et lukket og begrænset område
 
-#theorem(title: "Sætning 5.2.1 — Eksistens af globale ekstrema")[
+#theorem(
+  title: "Sætning 5.2.1 — Eksistens af globale ekstrema",
+)[
   Lad $B subset.eq RR^n$ være *lukket og begrænset*, og $f: B -> RR$ kontinuert. Da har $f$ en minimal og en maksimal værdi på $B$.
 
   Hvis $B$ desuden er *sammenhængende*, har $f$'s billedmængde formen $f(B) = [m, M]$.
@@ -1077,7 +1167,8 @@
   *Fundamentalsætningen:* $integral_a^b f(x) dd(x) = F(b) - F(a)$ hvor $F'(x) = f(x)$.
 ]
 
-#note-box()[
+#note-box(
+  )[
   *Fremgangsmåde — Integration ved substitution:*
 
   + Vælg $u = g(x)$.
@@ -1142,7 +1233,9 @@
 
 == Dobbeltintegraler — Rektangel
 
-#lemma(name: "Fubini")[
+#lemma(
+  name: "Fubini",
+)[
   For $f$ kontinuert på $R = [a, b] times [c, d]$:
   $
     integral.double_R f dd(A) = integral_a^b integral_c^d f(x, y) dd(y) dd(x) = integral_c^d integral_a^b f(x, y) dd(x) dd(y)
@@ -1200,10 +1293,13 @@
   + Integrér.
 ]
 
-#example(title: [Areal/volumen via polære koord.])[
+#example(
+  title: [Areal/volumen via polære koord.],
+)[
   Beregn $integral.double_A abs(x_1) dd(x_1, x_2)$ hvor $A = {x_1^2 + x_2^2 <= 4, x_2 >= 0}$.
 
-  #solution()[
+  #solution(
+    )[
     Halvcirkelskive radius $2$: $0 <= r <= 2$, $0 <= theta <= pi$.
 
     $abs(x_1) = abs(r cos theta) = r abs(cos theta)$.
@@ -1221,7 +1317,8 @@
   ]
 ]
 
-#math-hint()[
+#math-hint(
+  )[
   *Polære områder — visualisering:*
   - $0 <= r <= a$, $0 <= theta <= 2 pi$ → cirkelskive.
   - $theta <= r <= 2 theta$, $pi/4 <= theta <= 3 pi/2$ → spiral-segment (område mellem to spiraler).
@@ -1231,7 +1328,9 @@
 
 == Generel substitution (Jacobi-determinant)
 
-#lemma(name: "Substitutionsformel — generel")[
+#lemma(
+  name: "Substitutionsformel — generel",
+)[
   Lad $vb(T): U -> V$ være en $C^1$-diffeomorfi. Da gælder:
   $
     integral.double_V f(va(y)) dd(va(y)) = integral.double_U f(vb(T)(va(u))) abs(det vb(J)_(vb(T))(va(u))) dd(va(u))
@@ -1310,7 +1409,8 @@
   $
 ]
 
-#note-box()[
+#note-box(
+  )[
   *Bruges når:*
   - Området er en kugle eller har sfærisk symmetri.
   - Integrand afhænger af $x^2 + y^2 + z^2 = r^2$.
@@ -1321,7 +1421,9 @@
   $
 ]
 
-#example(title: [Volumen af halvkugle])[
+#example(
+  title: [Volumen af halvkugle],
+)[
   Halvkugle radius $R$, $z >= 0$: $0 <= r <= R$, $0 <= theta <= pi/2$ (kun øvre halvdel), $0 <= phi < 2 pi$.
 
   $
@@ -1329,7 +1431,8 @@
   $
 ]
 
-#math-hint()[
+#math-hint(
+  )[
   *Faktor-trick:* Hvis integranden kan skrives som produkt $f_1(r) f_2(theta) f_3(z)$ (eller tilsvarende i sfæriske), og grænserne er konstante, så er integralet et produkt af 1D-integraler:
 
   $
@@ -1357,7 +1460,9 @@
   $va(r)'(u)$ er *tangentvektoren* til kurven i punktet $va(r)(u)$.
 ]
 
-#example(title: [Almindelige kurver])[
+#example(
+  title: [Almindelige kurver],
+)[
   - *Cirkel (radius $R$):* $va(r)(u) = (R cos u, R sin u)$, $u in [0, 2 pi]$.
   - *Halvcirkel (øvre):* $va(r)(u) = (cos u, sin u)$, $u in [0, pi]$.
   - *Helix:* $va(r)(u) = (cos u, sin u, u)$, $u in [0, 2 pi]$.
@@ -1366,7 +1471,9 @@
 
 == Linjeintegral af skalar funktion (afsnit 7.2)
 
-#definition(title: [Definition 7.2.1 — Linjeintegral af skalar funktion])[
+#definition(
+  title: [Definition 7.2.1 — Linjeintegral af skalar funktion],
+)[
   For en kontinuert funktion $f: A -> RR$ ($A subset.eq RR^n$) og en regulær, stykkevis $C^1$ kurve $C = va(r)([a, b]) subset.eq A$:
   $
     integral_C f dd(s) = integral_a^b f(va(r)(u)) norm(va(r)'(u)) dd(u)
@@ -1407,7 +1514,9 @@
 
 == Fladeintegral af skalar funktion (afsnit 7.2)
 
-#definition(title: [Fladeintegral])[
+#definition(
+  title: [Fladeintegral],
+)[
   For flade $F = va(r)(Omega)$ ($Omega subset.eq RR^2$, $va(r): Omega -> RR^n$ regulær):
   $
     integral.double_F f dd(S) = integral.double_Omega f(va(r)(va(u))) norm(pdv(va(r), u_1) times pdv(va(r), u_2)) dd(u_1) dd(u_2)
@@ -1417,7 +1526,8 @@
   *Specialtilfælde — fladeareal:* Sæt $f equiv 1$.
 ]
 
-#math-hint()[
+#math-hint(
+  )[
   *Fladeintegraler er sjældne på 1b-eksamen* (kun grundbegrebet). Du behøver kun at kende formlen og kunne bruge den hvis spurgt.
 
   *Bemærk:* User-specifik undtagelse — sidste 4 sider af 7.2 ("Surface integrals of vector fields" og forfremde stykker) er IKKE pensum.
@@ -1429,11 +1539,15 @@
 
 == Vektorfelter — Definitioner
 
-#definition(title: [Vektorfelt])[
+#definition(
+  title: [Vektorfelt],
+)[
   Et *vektorfelt* er en funktion $va(V): U subset.eq RR^n -> RR^n$, dvs. til hvert punkt $va(x)$ knyttes en vektor $va(V)(va(x))$.
 ]
 
-#definition(title: [Definition 7.3.1 — Gradientfelt (konservativt felt)])[
+#definition(
+  title: [Definition 7.3.1 — Gradientfelt (konservativt felt)],
+)[
   $va(V)$ er et *gradientfelt* (har et *skalarpotentiale*) hvis der findes en $C^1$-funktion $f: U -> RR$ så:
   $
     va(V) = grad f
@@ -1445,7 +1559,9 @@
 
 == Test: Er $va(V)$ et gradientfelt?
 
-#lemma(name: "Lemma 7.3.1 — Symmetri-test (nødvendig betingelse)")[
+#lemma(
+  name: "Lemma 7.3.1 — Symmetri-test (nødvendig betingelse)",
+)[
   Lad $U subset.eq RR^n$ være åben, og $va(V): U -> RR^n$ være $C^1$.
 
   Hvis $va(V)$ er gradientfelt, så er $vb(J)_(va(V))(va(x))$ symmetrisk for alle $va(x) in U$:
@@ -1456,7 +1572,9 @@
   *Bevis (skitse):* Hvis $va(V) = grad f$, så er $V_i = pdv(f, x_i)$, og derfor $pdv(V_i, x_j) = pdv(f, x_i, x_j)$. Iflg. Schwarz' sætning er Hessens symmetrisk.
 ]
 
-#lemma(name: "Lemma 7.3.2 — Symmetri er TILSTRÆKKELIG på simply connected")[
+#lemma(
+  name: "Lemma 7.3.2 — Symmetri er TILSTRÆKKELIG på simply connected",
+)[
   Lad $U subset.eq RR^n$ være *åben og enkelt sammenhængende (simply connected)*, og $va(V): U -> RR^n$ være $C^1$.
 
   Hvis $vb(J)_(va(V))(va(x))$ er symmetrisk for alle $va(x) in U$, så *er* $va(V)$ et gradientfelt.
@@ -1572,7 +1690,9 @@
 
 == Tangentielt kurveintegral
 
-#definition(title: [Definition 7.4.1 — Linjeintegral af vektorfelt])[
+#definition(
+  title: [Definition 7.4.1 — Linjeintegral af vektorfelt],
+)[
   For kurve $C$ med regulær, stykkevis $C^1$-parametrisering $va(r): [a, b] -> RR^n$:
   $
     integral_C va(V) dot dd(va(s)) = integral_a^b iprod(va(V)(va(r)(u)), va(r)'(u)) dd(u)
@@ -1594,7 +1714,9 @@
   *Eksamenstrick:* Skriv "iflg. Lemma 7.4.1 ..." og indsæt endepunkter.
 ]
 
-#theorem(title: "Sætning 7.4.2 — Beregning af stamfunktion via linjeintegral")[
+#theorem(
+  title: "Sætning 7.4.2 — Beregning af stamfunktion via linjeintegral",
+)[
   Hvis $va(V): U -> RR^n$ er gradientfelt og $va(x)_0 in U$, så er stamfunktionen $f$ der opfylder $f(va(x)_0) = 0$ givet ved:
   $
     f(va(x)) = integral_C va(V) dot dd(va(s))
@@ -1637,7 +1759,8 @@
   ]
 ]
 
-#math-hint()[
+#math-hint(
+  )[
   *Klassiske fælder:*
 
   + *Glem ikke at tjekke at $va(V)$ ER gradientfelt* før du bruger fundamentalsætningen.
@@ -1659,7 +1782,7 @@
   *Top 10 huskereglene:*
 
   + *Gradient*: $grad f = vec(pdv(f, x_1), pdv(f, x_2), dots)$.
-  + *Hesse-matrix 2D*: $vb(H) = mat(f_(x x), f_(x y); f_(y x), f_(y y))$ — symmetrisk for $C^2$.
+  + *Hesse-matrix 2D*: $vb(H) = mat(f_(x x), f_(x y);f_(y x), f_(y y))$ — symmetrisk for $C^2$.
   + *Hesse-test 2D*: $det vb(H) > 0$ og $A > 0$ → min; $A < 0$ → max; $det vb(H) < 0$ → saddel.
   + *Polære Jacobiant*: $r$.
   + *Sfæriske Jacobiant* (bogens konv.): $r^2 sin theta$ (med $theta$ = vinkel fra +z-akse).
@@ -1672,7 +1795,8 @@
 
 == Faste fraser ("script")
 
-#note-box()[
+#note-box(
+  )[
   *Til opgaver om gradientfelt (Lemma 7.3.2):*
   "Da $RR^n$ er stjerneformet (Definition 7.3.3) og dermed enkelt sammenhængende, og Jacobi-matricen $vb(J)_(va(V))$ er symmetrisk (da $pdv(V_i, x_j) = pdv(V_j, x_i)$), er $va(V)$ et gradientfelt iflg. Lemma 7.3.2."
 
@@ -1704,25 +1828,44 @@
     inset: 6pt,
     fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
     table.header([*Sætning/Lemma*], [*Hvad det siger*]),
-    [Definition 3.3.X], [Gradient definition],
-    [Definition 3.5.1], [Hesse-matrix definition],
-    [Sætning 3.6.5 (Schwarz)], [$C^2 ==>$ Hesse symmetrisk],
-    [Lemma 4.3.1], [Taylor's formel 1D med $xi$-form],
-    [Sætning 4.3.3], [Taylor's theorem — fejlvurdering i 1D],
-    [Definition 4.5.1], [Taylor-polynomium 2. orden multivariate],
-    [Sætning 4.6.1], [Taylor's formel multivariate ($epsilon$-form)],
-    [Sætning 5.2.1], [Eksistens af globale ekstrema på lukket+begrænset],
-    [Sætning 5.2.2], [Hvor ligger ekstrema (rand, ikke-diff, stationær)],
-    [Sætning 5.2.4], [*Anden-ordens test via egenværdier af Hesse*],
-    [Sætning 2.8 (Spektralsætningen)], [Symm. matrix → ortog. diagonaliserbar],
-    [Sætning 6.4.1 / 6.6.2], [Change of variables, $abs(det vb(J))$-faktor],
-    [Eksempel 6.6.3], [Spheriske/cylindriske koord. definition],
-    [Lemma 7.3.1], [Gradientfelt $==>$ symmetrisk Jacobi],
-    [Lemma 7.3.2], [Simply connected + symm. Jacobi $==>$ gradientfelt],
-    [Definition 7.4.1], [Linjeintegral af vektorfelt],
-    [Lemma 7.4.1], [Fundamentalsætning — $integral va(V) dot dd(va(s)) = f("end") - f("start")$],
-    [Sætning 7.4.2], [Stamfunktion via linjeintegral fra $va(x)_0$],
-    [Korollar 7.4.3], [Cirkulationssætning — lukket kurve $==>$ integral $=0$],
+    [Definition 3.3.X],
+    [Gradient definition],
+    [Definition 3.5.1],
+    [Hesse-matrix definition],
+    [Sætning 3.6.5 (Schwarz)],
+    [$C^2 ==>$ Hesse symmetrisk],
+    [Lemma 4.3.1],
+    [Taylor's formel 1D med $xi$-form],
+    [Sætning 4.3.3],
+    [Taylor's theorem — fejlvurdering i 1D],
+    [Definition 4.5.1],
+    [Taylor-polynomium 2. orden multivariate],
+    [Sætning 4.6.1],
+    [Taylor's formel multivariate ($epsilon$-form)],
+    [Sætning 5.2.1],
+    [Eksistens af globale ekstrema på lukket+begrænset],
+    [Sætning 5.2.2],
+    [Hvor ligger ekstrema (rand, ikke-diff, stationær)],
+    [Sætning 5.2.4],
+    [*Anden-ordens test via egenværdier af Hesse*],
+    [Sætning 2.8 (Spektralsætningen)],
+    [Symm. matrix → ortog. diagonaliserbar],
+    [Sætning 6.4.1 / 6.6.2],
+    [Change of variables, $abs(det vb(J))$-faktor],
+    [Eksempel 6.6.3],
+    [Spheriske/cylindriske koord. definition],
+    [Lemma 7.3.1],
+    [Gradientfelt $==>$ symmetrisk Jacobi],
+    [Lemma 7.3.2],
+    [Simply connected + symm. Jacobi $==>$ gradientfelt],
+    [Definition 7.4.1],
+    [Linjeintegral af vektorfelt],
+    [Lemma 7.4.1],
+    [Fundamentalsætning — $integral va(V) dot dd(va(s)) = f("end") - f("start")$],
+    [Sætning 7.4.2],
+    [Stamfunktion via linjeintegral fra $va(x)_0$],
+    [Korollar 7.4.3],
+    [Cirkulationssætning — lukket kurve $==>$ integral $=0$],
   )
 ]
 
@@ -1749,24 +1892,42 @@
     inset: 6pt,
     fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
     table.header([*Type*], [*Strategi*]),
-    [Find gradient], [Diff. mht. hver variabel],
-    [Find Hesse], [Diff. gradient mht. hver variabel],
-    [Find stationære punkter], [$grad f = va(0)$ → løs lin/ulin. system],
-    [Klassificér ekstremum], [$det(vb(H))$-test eller egenværdier],
-    [Taylor-polynomium], [Beregn afledte i udviklingspunkt + indsæt formel],
-    [Fejlvurdering], [Lagrange-restled $M/((n+1)!) abs(x-x_0)^(n+1)$],
-    [Tjek kontinuitet (1D)], [$lim_(x->x_0^-) = lim_(x->x_0^+) = f(x_0)$],
-    [Tjek diff. (1D)], [Differenskvotient eller $f'_- = f'_+$],
-    [Gradientfelt?], [Jacobi-matrix symmetrisk på stjerneformet område],
-    [Find stamfunktion], [Integrér en komp., diff. for $g(y)$, indsæt],
-    [Tangentielt kurveintegral], [$f("end") - f("start")$ (hvis gradientfelt)],
-    [Volumen mellem grafer], [$integral.double_A (g_2 - g_1) dd(A)$],
-    [Volumen kugle], [Sfæriske koord., Jac. $r^2 sin theta$],
-    [Volumen cylinder/kegle], [Cylindriske koord., Jac. $r$],
-    [Ortogonal basis], [Gram-Schmidt + normér],
-    [Reducer kvadr. form], [Find egenværdier af $vb(A)$ symmetrisk; $vb(Q)^T vb(A) vb(Q) = vb(D)$],
-    [Diagonaliser symmetrisk], [Egenværdier + ortonormale egenvektorer → $vb(Q)$],
-    [Definitehed], [Egenværdiernes fortegn (eller $det$ og spor i 2D)],
+    [Find gradient],
+    [Diff. mht. hver variabel],
+    [Find Hesse],
+    [Diff. gradient mht. hver variabel],
+    [Find stationære punkter],
+    [$grad f = va(0)$ → løs lin/ulin. system],
+    [Klassificér ekstremum],
+    [$det(vb(H))$-test eller egenværdier],
+    [Taylor-polynomium],
+    [Beregn afledte i udviklingspunkt + indsæt formel],
+    [Fejlvurdering],
+    [Lagrange-restled $M/((n+1)!) abs(x-x_0)^(n+1)$],
+    [Tjek kontinuitet (1D)],
+    [$lim_(x->x_0^-) = lim_(x->x_0^+) = f(x_0)$],
+    [Tjek diff. (1D)],
+    [Differenskvotient eller $f'_- = f'_+$],
+    [Gradientfelt?],
+    [Jacobi-matrix symmetrisk på stjerneformet område],
+    [Find stamfunktion],
+    [Integrér en komp., diff. for $g(y)$, indsæt],
+    [Tangentielt kurveintegral],
+    [$f("end") - f("start")$ (hvis gradientfelt)],
+    [Volumen mellem grafer],
+    [$integral.double_A (g_2 - g_1) dd(A)$],
+    [Volumen kugle],
+    [Sfæriske koord., Jac. $r^2 sin theta$],
+    [Volumen cylinder/kegle],
+    [Cylindriske koord., Jac. $r$],
+    [Ortogonal basis],
+    [Gram-Schmidt + normér],
+    [Reducer kvadr. form],
+    [Find egenværdier af $vb(A)$ symmetrisk; $vb(Q)^T vb(A) vb(Q) = vb(D)$],
+    [Diagonaliser symmetrisk],
+    [Egenværdier + ortonormale egenvektorer → $vb(Q)$],
+    [Definitehed],
+    [Egenværdiernes fortegn (eller $det$ og spor i 2D)],
   )
 ]
 
