@@ -52,6 +52,7 @@
     [Determinant $2 times 2$], [$mdet(a,b;c,d) = a d - b c$],
     [Sarrus $3 times 3$], [$"hovd. - antid."$ se afsnit nedenfor],
     [Indre produkt i $RR^n$], [$iprod(va(u), va(v)) = sum u_i v_i$],
+    [$L^2$ indre produkt for polynomier], [$iprod(f, g) = integral_(-1)^1 f(x) g(x) dd(x)$],
     [Norm], [$norm(va(v)) = sqrt(iprod(va(v), va(v)))$],
     [Projektion på $va(u)$], [$op("proj")_(va(u)) va(v) = iprod(va(v),va(u))/iprod(va(u),va(u)) va(u)$],
     [Polære koord.], [$x = r cos theta, y = r sin theta, $ Jac $= r$],
@@ -227,6 +228,64 @@
   $lim_(x -> 2) (x^2 - 4)/(x - 2) = lim_(x -> 2) ((x-2)(x+2))/(x-2) = lim_(x -> 2) (x+2) = 4$
 ]
 
+=== Grænseværdi med Taylor (dominerende led)
+
+#important[
+  Bruges når $f(x)$ og $g(x)$ begge går mod 0, og især når $g(x)$ indeholder en $epsilon$-funktion (rest-led fra Taylor).
+
+  *Idé:* Taylor-udvid både tæller og nævner. Det laveste gradsled "dominerer" tæt på 0 — alle højere led forsvinder i grænsen.
+]
+
+#note-box()[
+  *Fremgangsmåde — Grænseværdi med Taylor:*
+
+  + *Taylor-udvid tælleren* $f(x)$ omkring $x_0 = 0$ (brug standard Maclaurin-rækker).
+  + *Skriv nævneren* eksplicit (ofte allerede på form $a x^n + x^n epsilon(x)$).
+  + *Find laveste gradsled* i tæller og nævner. Lad det være $x^n$.
+  + *Divider tæller og nævner med $x^n$.* Højere led bliver til $x$ gange noget → går mod 0.
+  + *Tag grænsen:* $epsilon(x) -> 0$ og alle led med ekstra $x$ forsvinder.
+]
+
+#example(title: [Grænseværdi med Taylor])[
+  Beregn $lim_(x -> 0) (ln(1 + 3x) - 3x)/(1/5 x^2 + x^2 epsilon(x))$.
+
+  #solution()[
+    *Trin 1 — Taylor-udvid tælleren:*
+
+    $ln(1 + u) = u - u^2/2 + u^3/3 - dots$ for $u = 3x$:
+    $
+      ln(1 + 3x) = 3x - (3x)^2/2 + dots = 3x - 9/2 x^2 + dots
+    $
+
+    Så $ln(1 + 3x) - 3x = -9/2 x^2 + dots$ (resten er højere orden i $x$).
+
+    *Trin 2 — Identificér laveste gradsled:* Tæller og nævner er begge af orden $x^2$.
+
+    *Trin 3 — Divider tæller og nævner med $x^2$:*
+    $
+      (ln(1 + 3x) - 3x)/(1/5 x^2 + x^2 epsilon(x)) = (-9/2 + "højere orden i" x)/(1/5 + epsilon(x))
+    $
+
+    *Trin 4 — Tag grænsen:* $epsilon(x) -> 0$ og højere orden led går mod 0:
+    $
+      lim_(x -> 0) (-9/2)/(1/5) = -9/2 dot 5 = -45/2
+    $
+
+    *Svar:* $-45/2$.
+  ]
+]
+
+#math-hint()[
+  *Standardrækker du SKAL kende til denne type opgave:*
+  - $e^x = 1 + x + x^2/2 + x^3/6 + dots$
+  - $sin(x) = x - x^3/6 + dots$
+  - $cos(x) = 1 - x^2/2 + x^4/24 - dots$
+  - $ln(1 + x) = x - x^2/2 + x^3/3 - dots$
+  - $1/(1-x) = 1 + x + x^2 + dots$
+
+  *Tip:* Hvis tælleren er $f(x) - $ (lineær approx af $f$), så er resultatet 2.-grads-leddet.
+]
+
 #pagebreak()
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -364,6 +423,68 @@
   $
 ]
 
+== Symmetri af matricer
+
+#important[
+  En matrix $vb(M)$ er *symmetrisk* hvis $vb(M) = vb(M)^T$.
+
+  *Tjek symmetri i praksis:* Sammenlign element $(i, j)$ med element $(j, i)$ for alle $i eq.not j$. Diagonalindgangene er altid lig sig selv.
+]
+
+#align(center)[
+  #table(
+    columns: 3,
+    stroke: 0.5pt,
+    inset: 6pt,
+    fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
+    table.header([*Udtryk*], [*Symmetrisk?*], [*Hvorfor*]),
+    [$vb(A) + vb(A)^T$], [✓], [$(vb(A) + vb(A)^T)^T = vb(A)^T + vb(A) = vb(A) + vb(A)^T$],
+    [$vb(A) - vb(A)^T$], [✗], [$(vb(A) - vb(A)^T)^T = vb(A)^T - vb(A) = -(vb(A) - vb(A)^T)$ — *anti-symmetrisk*],
+    [$vb(A) vb(A)^T$], [✓], [$(vb(A) vb(A)^T)^T = (vb(A)^T)^T vb(A)^T = vb(A) vb(A)^T$],
+    [$vb(A)^T vb(A)$], [✓], [Samme argument: $(vb(A)^T vb(A))^T = vb(A)^T (vb(A)^T)^T = vb(A)^T vb(A)$],
+    [$vb(A) vb(B)$, generelt], [✗], [Kun hvis $vb(A) vb(B) = vb(B) vb(A)$ og begge er symmetriske],
+  )
+]
+
+#math-hint()[
+  *MC-trick:* Hvis spørgsmålet er "hvilke af disse matricer er symmetriske?" — tjek bare $(1,2)$ vs $(2,1)$, $(1,3)$ vs $(3,1)$, og $(2,3)$ vs $(3,2)$. Det er nok til at afgøre $3 times 3$.
+]
+
+== Adjungeret matrix og Hermitisk
+
+#definition(title: [Adjungeret matrix $vb(B)^*$])[
+  For $vb(B) in CC^(n times n)$ er *adjungeret matrix* $vb(B)^* = overline(vb(B))^T$ (transponer + konjuger alle indgange).
+
+  *Andre navne:* "Hermitisk konjugeret", "konjugeret transponeret".
+]
+
+#note-box()[
+  *Fremgangsmåde — Beregn $vb(B)^*$:*
+
+  + Transponér $vb(B)$ → $vb(B)^T$ (byt rækker og søjler).
+  + Konjugér alle indgange (erstat $i$ med $-i$, lad reelle tal være) → $vb(B)^*$.
+
+  *Rækkefølge er ligegyldig:* Du kan også konjugere først, så transponere — samme resultat.
+]
+
+#definition(title: [Hermitisk matrix])[
+  $vb(B)$ er *Hermitisk* hvis $vb(B) = vb(B)^*$.
+
+  *Bemærk:* For reelle matricer er Hermitisk $<==>$ symmetrisk (fordi konjugat = identitet).
+]
+
+#example(title: [Beregn $vb(B)^*$])[
+  $vb(B) = mat(2, 1+i; 3-2i, 4)$.
+
+  #solution()[
+    *Transponer:* $vb(B)^T = mat(2, 3-2i; 1+i, 4)$.
+
+    *Konjuger alle indgange:* $vb(B)^* = mat(2, 3+2i; 1-i, 4)$.
+
+    *Er $vb(B)$ Hermitisk?* Nej, fordi $vb(B) eq.not vb(B)^*$ (sammenlign $(1,2)$-indgang: $1+i$ vs $3+2i$).
+  ]
+]
+
 == Kontinuitet og differentiabilitet i højere dim.
 
 #important[
@@ -420,6 +541,61 @@
   - $iprod(va(x), va(y)) = overline(iprod(va(y), va(x)))$ (konjugat-symmetri)
   - $iprod(c va(x) + d va(y), va(z)) = c iprod(va(x), va(z)) + d iprod(va(y), va(z))$ (linearitet i 1. entry)
   - $iprod(va(x), c va(y) + d va(z)) = overline(c) iprod(va(x), va(y)) + overline(d) iprod(va(x), va(z))$ (konjugat-lineær i 2.)
+]
+
+== $L^2$ indre produkt for polynomier
+
+#definition(title: [$L^2$ indre produkt på $P_n[-1, 1]$])[
+  For polynomier $f, g in P_n[-1, 1]$ er *$L^2$-indre produktet*:
+  $
+    iprod(f, g) = integral_(-1)^1 f(x) g(x) dd(x)
+  $
+
+  Dette er et indre produkt på rummet af polynomier (eller mere generelt kontinuerte funktioner) på $[-1, 1]$.
+]
+
+#note-box()[
+  *Fremgangsmåde — Beregn $iprod(f, g) = integral_(-1)^1 f g dd(x)$:*
+
+  + *Udvid produktet* $f(x) dot g(x)$.
+  + *Integrér ledvis* over $[-1, 1]$.
+  + *Brug paritets-trick:* Et *ulige* led ($x$, $x^3$, $x^5$, $dots$) integrerer til $0$ over $[-1, 1]$ — kun *lige* led ($1$, $x^2$, $x^4$, $dots$) bidrager.
+
+  *Standardintegraler over $[-1, 1]$:*
+  - $integral_(-1)^1 x^(2k+1) dd(x) = 0$ (ulige).
+  - $integral_(-1)^1 x^(2k) dd(x) = 2/(2k+1)$ (lige).
+  - $integral_(-1)^1 1 dd(x) = 2$, $integral_(-1)^1 x^2 dd(x) = 2/3$, $integral_(-1)^1 x^4 dd(x) = 2/5$, $integral_(-1)^1 x^6 dd(x) = 2/7$.
+]
+
+#example(title: [$L^2$ indre produkt])[
+  Beregn $iprod(3x, 6 x^3 + 10 x^4)$ i $P_4[-1, 1]$.
+
+  #solution()[
+    *Trin 1 — udvid:*
+    $
+      3x dot (6 x^3 + 10 x^4) = 18 x^4 + 30 x^5
+    $
+
+    *Trin 2 — paritets-tjek:*
+    - $18 x^4$ er *lige* → bidrager.
+    - $30 x^5$ er *ulige* → integrerer til $0$. Skip det!
+
+    *Trin 3 — integrér:*
+    $
+      iprod(3x, 6x^3 + 10 x^4) = integral_(-1)^1 18 x^4 dd(x) = 18 dot 2/5 = 36/5
+    $
+
+    *Svar:* $36/5$.
+  ]
+]
+
+#math-hint()[
+  *Paritets-shortcut (eksamenstrick):*
+  - $iprod("lige", "lige") =$ kan være $eq.not 0$.
+  - $iprod("ulige", "ulige") =$ kan være $eq.not 0$ (produkt af to ulige er lige).
+  - $iprod("lige", "ulige") = 0$ ALTID (produkt er ulige, integralet er 0).
+
+  *Bruges til:* Hurtig ortogonalitets-tjek mellem polynomier på $[-1, 1]$.
 ]
 
 #definition(title: [Norm])[
@@ -672,45 +848,50 @@
 ]
 
 #note-box()[
-  *Fremgangsmåde — Reducer kvadratisk form $q(x_1, x_2)$:*
+  *Fremgangsmåde — Reducer kvadratisk form $q(x_1, x_2)$ (komplet trin-for-trin):*
 
-  + Find symmetrisk matrix $vb(A)$ således $q_2(va(x)) = va(x)^T vb(A) va(x)$ (den rene 2.-grads del; lineære led tager man for sig).
-  + Find egenværdier $lambda_1, lambda_2$ og normaliserede egenvektorer $va(q)_1, va(q)_2$.
-  + $vb(Q) = [va(q)_1 mid(|) va(q)_2]$.
-  + I de nye koord. $tilde(va(x)) = vb(Q)^T va(x)$:
-    $
-      q = lambda_1 tilde(x)_1^2 + lambda_2 tilde(x)_2^2 + "(transformerede lin. led)" + "konst."
-    $
-  + Saml til "completing the square" form $a(tilde(x)_1 - b)^2 + c(tilde(x)_2 - d)^2 + dots$.
+  + *Isolér 2.-gradsdelen* af $q$ (ignorer lineære led og konstanter for nu).
+  + *Byg symmetrisk matrix $vb(A)$:*
+    - $a_(11)$ = koefficient for $x_1^2$
+    - $a_(22)$ = koefficient for $x_2^2$
+    - $a_(12) = a_(21)$ = *halvdelen* af koefficienten for $x_1 x_2$ (BEMÆRK: halvdelen!)
+  + *Find egenværdier:* løs $det(vb(A) - lambda vb(I)) = 0$.
+  + *Find egenvektorer:* for hver egenværdi løs $(vb(A) - lambda vb(I)) va(v) = va(0)$.
+  + *Tjek ortogonalitet:* $iprod(va(v)_1, va(v)_2) = 0$ (skal være 0 for symmetrisk matrix med forskellige egenværdier).
+  + *Tag normer:* $norm(va(v)_i) = sqrt(sum v_(i j)^2)$.
+  + *Byg $vb(Q)$:* $vb(Q) = [va(v)_1 / norm(va(v)_1) mid(|) va(v)_2 / norm(va(v)_2)]$ (normerede egenvektorer som søjler).
+  + *Skriv ny form:* $q = lambda_1 tilde(x)_1^2 + lambda_2 tilde(x)_2^2 + "(transformerede lin. led)" + "konst."$
+  + (Hvis lineære led): saml til "completing the square" $a(tilde(x)_1 - b)^2 + c(tilde(x)_2 - d)^2 + dots$.
 ]
 
 #example(title: [Reducer kvadratisk form])[
   $q(x_1, x_2) = -4 x_1 x_2 + 3 x_2^2 - 4 x_1 + 2 x_2 + 2$.
 
   #solution()[
-    *2.-grads del:* $-4 x_1 x_2 + 3 x_2^2$.
+    *Trin 1 — 2.-grads del:* $-4 x_1 x_2 + 3 x_2^2$.
 
-    Symmetrisk matrix: $vb(A) = mat(0, -2; -2, 3)$ (blandet led $-4 x_1 x_2 ==> a_(12) = -2$).
+    *Trin 2 — symmetrisk matrix:* $vb(A) = mat(0, -2; -2, 3)$ (blandet led $-4 x_1 x_2 ==> a_(12) = -4/2 = -2$).
 
-    *Egenværdier:*
+    *Trin 3 — egenværdier:*
     $
       det(vb(A) - lambda vb(I)) = mdet(-lambda, -2; -2, 3-lambda) = -lambda(3-lambda) - 4 = lambda^2 - 3 lambda - 4 = (lambda-4)(lambda+1)
     $
     $==> lambda_1 = 4, lambda_2 = -1$.
 
-    *Egenvektorer:*
-    - $lambda = 4$: $(vb(A) - 4 vb(I)) va(v) = mat(-4, -2; -2, -1) va(v) = va(0) ==> va(v) = vec(1, -2)$ (eller $vec(-1, 2)$).
-    - $lambda = -1$: $(vb(A) + vb(I)) va(v) = mat(1, -2; -2, 4) va(v) = va(0) ==> va(v) = vec(2, 1)$.
+    *Trin 4 — egenvektorer:*
+    - $lambda = 4$: $(vb(A) - 4 vb(I)) va(v) = mat(-4, -2; -2, -1) va(v) = va(0) ==> va(v)_1 = vec(1, -2)$.
+    - $lambda = -1$: $(vb(A) + vb(I)) va(v) = mat(1, -2; -2, 4) va(v) = va(0) ==> va(v)_2 = vec(2, 1)$.
 
-    *Tjek ortogonal:* $iprod(vec(1,-2), vec(2,1)) = 2 - 2 = 0$ ✓.
+    *Trin 5 — tjek ortogonal:* $iprod(vec(1,-2), vec(2,1)) = 2 - 2 = 0$ ✓.
 
-    *Normér:* $norm(vec(1,-2)) = sqrt(5)$, $norm(vec(2,1)) = sqrt(5)$.
+    *Trin 6 — normér:* $norm(vec(1,-2)) = sqrt(5)$, $norm(vec(2,1)) = sqrt(5)$.
 
+    *Trin 7 — $vb(Q)$:*
     $
-      vb(Q) = 1/sqrt(5) mat(1, 2; -2, 1) quad "(eller varianter med ombyttede søjler/fortegn)"
+      vb(Q) = 1/sqrt(5) mat(1, 2; -2, 1)
     $
 
-    *Verifikation MC-style:* Test om søjlerne er egenvektorer for $vb(A)$ med rigtige egenværdier.
+    *Trin 8 — ny form:* I koord. $tilde(va(x)) = vb(Q)^T va(x)$: $q = 4 tilde(x)_1^2 - tilde(x)_2^2 + "(transformerede lin. led)" + 2$.
   ]
 ]
 
@@ -809,6 +990,37 @@
     Lagrange-restled: $abs(R_2(0)) <= M/(3!) abs(0 - 1)^3 = 5/6 dot 1 = 5/6$.
 
     Så $f(0) = 7/2 plus.minus 5/6$.
+  ]
+]
+
+== Taylor fejlinterval
+
+#important[
+  *Sætning (følger af Lagrange-restled):* Givet $P_n(x_0)$ og en øvre grænse $abs(R_n(x_0)) < epsilon$, ligger $f(x_0)$ i intervallet:
+  $
+    P_n(x_0) - epsilon < f(x_0) < P_n(x_0) + epsilon
+  $
+
+  *Konsekvens:* Værdier *uden for* dette interval er *ikke mulige* for $f(x_0)$.
+]
+
+#note-box()[
+  *Fremgangsmåde — Find mulige værdier af $f(x_0)$:*
+
+  + Beregn $P_n(x_0)$.
+  + Find øvre grænse $epsilon$ for $abs(R_n(x_0))$ via Lagrange-restled.
+  + $f(x_0) in (P_n(x_0) - epsilon, P_n(x_0) + epsilon)$.
+
+  *Til MC:* Tjek hver kandidat $alpha$: $f(x_0) = alpha$ er muligt $<==>$ $abs(alpha - P_n(x_0)) < epsilon$.
+]
+
+#example(title: [Fejlinterval])[
+  Antag $P_2(1) = 5$ og $abs(R_2(1)) < 0.3$. Hvilke værdier er mulige for $f(1)$?
+
+  #solution()[
+    Interval: $f(1) in (5 - 0.3, 5 + 0.3) = (4.7, 5.3)$.
+
+    *MC-tjek:* $4.5$ er ikke muligt ($abs(4.5 - 5) = 0.5 > 0.3$); $4.85$ er muligt ($abs(4.85 - 5) = 0.15 < 0.3$).
   ]
 ]
 
@@ -1659,7 +1871,7 @@
   + *Hesse-test 2D*: $det vb(H) > 0$ og $A > 0$ → min; $A < 0$ → max; $det vb(H) < 0$ → saddel.
   + *Polære Jacobiant*: $r$.
   + *Sfæriske Jacobiant* (bogens konv.): $r^2 sin theta$ (med $theta$ = vinkel fra +z-akse).
-  + *Indre produkt*: $iprod(va(u), va(v)) = sum u_i v_i$.
+  + *Indre produkt*: $iprod(va(u), va(v)) = sum u_i v_i$. *$L^2$ for polynomier*: $integral_(-1)^1 f g dd(x)$.
   + *Projektion*: $op("proj")_(va(u)) va(v) = iprod(va(v), va(u))/iprod(va(u), va(u)) va(u)$.
   + *Taylor 1D*: $P_n(x) = sum (f^((k))(x_0))/k! (x-x_0)^k$.
   + *Lagrange-restled*: $abs(R_n) <= M/((n+1)!) abs(x - x_0)^(n+1)$.
@@ -1700,6 +1912,7 @@
     inset: 6pt,
     fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
     table.header([*Sætning/Lemma*], [*Hvad det siger*]),
+    [Definition 2.1.2], [Indre produkt på $RR^n$ og $CC^n$],
     [Definition 3.3.X], [Gradient definition],
     [Definition 3.5.1], [Hesse-matrix definition],
     [Sætning 3.6.5 (Schwarz)], [$C^2 ==> $ Hesse symmetrisk],
@@ -1710,9 +1923,11 @@
     [Sætning 5.2.1], [Eksistens af globale ekstrema på lukket+begrænset],
     [Sætning 5.2.2], [Hvor ligger ekstrema (rand, ikke-diff, stationær)],
     [Sætning 5.2.4], [*Anden-ordens test via egenværdier af Hesse*],
+    [Sætning 2.5.1], [Gram-Schmidt giver ortonormal basis],
     [Sætning 2.8 (Spektralsætningen)], [Symm. matrix → ortog. diagonaliserbar],
     [Sætning 6.4.1 / 6.6.2], [Change of variables, $abs(det vb(J))$-faktor],
     [Eksempel 6.6.3], [Spheriske/cylindriske koord. definition],
+    [Definition 7.2.1], [Linjeintegral af skalar funktion],
     [Lemma 7.3.1], [Gradientfelt $==>$ symmetrisk Jacobi],
     [Lemma 7.3.2], [Simply connected + symm. Jacobi $==>$ gradientfelt],
     [Definition 7.4.1], [Linjeintegral af vektorfelt],
@@ -1751,11 +1966,16 @@
     [Klassificér ekstremum], [$det(vb(H))$-test eller egenværdier],
     [Taylor-polynomium], [Beregn afledte i udviklingspunkt + indsæt formel],
     [Fejlvurdering], [Lagrange-restled $M/((n+1)!) abs(x-x_0)^(n+1)$],
+    [Fejlinterval], [$f(x_0) in (P_n(x_0) - epsilon, P_n(x_0) + epsilon)$],
+    [Grænseværdi med $epsilon$], [Taylor-udvid tæller; identificér laveste gradsled],
     [Tjek kontinuitet (1D)], [$lim_(x->x_0^-) = lim_(x->x_0^+) = f(x_0)$],
     [Tjek diff. (1D)], [Differenskvotient eller $f'_- = f'_+$],
     [Gradientfelt?], [Jacobi-matrix symmetrisk på stjerneformet område],
     [Find stamfunktion], [Integrér en komp., diff. for $g(y)$, indsæt],
     [Tangentielt kurveintegral], [$f("end") - f("start")$ (hvis gradientfelt)],
+    [$L^2$ indre produkt for polynomier], [$integral_(-1)^1 f g dd(x)$; brug paritets-trick],
+    [Symmetrisk matrix?], [Tjek $(i,j) = (j,i)$ for $i eq.not j$],
+    [Adjungeret matrix $vb(B)^*$], [Transponer + konjuger alle indgange],
     [Volumen mellem grafer], [$integral.double_A (g_2 - g_1) dd(A)$],
     [Volumen kugle], [Sfæriske koord., Jac. $r^2 sin theta$],
     [Volumen cylinder/kegle], [Cylindriske koord., Jac. $r$],
