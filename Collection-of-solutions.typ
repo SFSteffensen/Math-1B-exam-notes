@@ -151,6 +151,10 @@
     [$e^(a x)(x/a - 1/a^2)$],
     [$abs(x)$],
     [$"sign"(x)$],
+    [$abs(x)$],
+    [$x/2 abs(x)$],
+    [$sqrt(a^2+x^2)$],
+    [$x/sqrt(a^2+x^2)$],
     [$sqrt(a^2+x^2)$],
     [$x/2 sqrt(a^2+x^2) + a^2/2 ln(x + sqrt(a^2+x^2))$],
   )
@@ -1491,7 +1495,7 @@
   *Fremgangsmåde — Partiel integration:*
 
   + *Vælg $u$ og $dd(v)$* efter *LIATE*-reglen (sæt $u$ = øverste type):
-    - *L*ogaritme > *I*nvers trig > *A*lgebraisk ($x^n$) > *T*rig > *E*ksponential
+    - #strong[L]ogaritme > #strong[I]nvers trig > #strong[A]lgebraisk ($x^n$) > #strong[T]rig > #strong[E]ksponential
   + *Beregn $dd(u)$:* differentier $u$.
   + *Beregn $v$:* integrer $dd(v)$ (ignorer $+ C$ i dette trin).
   + *Indsæt i formlen:* $u v - integral v dd(u)$.
