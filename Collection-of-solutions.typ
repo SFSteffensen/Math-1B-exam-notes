@@ -104,7 +104,15 @@
     [$e^(a x)$],
     [$a e^(a x)$],
     [$e^(a x)$],
-    [$1/a e^(a x)$],
+    [$e^(a x)/a$],
+    [$(a x+b)^n$ ($n eq.not -1$)],
+    [$n a (a x+b)^(n-1)$],
+    [$(a x+b)^n$ ($n eq.not -1$)],
+    [$(a x+b)^(n+1)/(a(n+1))$],
+    [$1/(a x+b)$],
+    [$-a/(a x+b)^2$],
+    [$1/(a x+b)$],
+    [$ln|a x+b|/a$],
     [$ln(x)$],
     [$1/x$],
     [$1/x$],
@@ -117,6 +125,14 @@
     [$-sin(x)$],
     [$cos(x)$],
     [$sin(x)$],
+    [$sin(a x)$],
+    [$a cos(a x)$],
+    [$sin(a x)$],
+    [$-cos(a x)/a$],
+    [$cos(a x)$],
+    [$-a sin(a x)$],
+    [$cos(a x)$],
+    [$sin(a x)/a$],
     [$tan(x)$],
     [$1/cos^2(x)$],
     [$1/cos^2(x)$],
@@ -129,8 +145,16 @@
     [$1/sqrt(1-x^2)$],
     [$1/sqrt(1-x^2)$],
     [$arcsin(x)$],
+    [$x e^(a x)$],
+    [$e^(a x)(a x+1)$],
+    [$x e^(a x)$],
+    [$e^(a x)(x/a - 1/a^2)$],
     [$abs(x)$],
     [$"sign"(x)$],
+    [$abs(x)$],
+    [$x/2 abs(x)$],
+    [$sqrt(a^2+x^2)$],
+    [$x/sqrt(a^2+x^2)$],
     [$sqrt(a^2+x^2)$],
     [$x/2 sqrt(a^2+x^2) + a^2/2 ln(x + sqrt(a^2+x^2))$],
   )
@@ -1380,29 +1404,175 @@
   *Fundamentalsætningen:* $integral_a^b f(x) dd(x) = F(b) - F(a)$ hvor $F'(x) = f(x)$.
 ]
 
-#note-box(
-  )[
-  *Fremgangsmåde — Integration ved substitution:*
+== Integrationstabel
 
-  + Vælg $u = g(x)$.
-  + Beregn $dd(u) = g'(x) dd(x)$.
-  + Erstat $g(x)$ med $u$, og $g'(x) dd(x)$ med $dd(u)$.
-  + Ændr grænserne: nye grænser er $g(a)$ og $g(b)$.
-  + Integrér ifht. $u$.
+#align(center)[
+  #table(
+    columns: 2,
+    stroke: 0.5pt,
+    inset: 6pt,
+    fill: (x, y) => if y == 0 { gray.lighten(80%) } else { none },
+    table.header([*$f(x)$*], [*$integral f(x) dd(x)$*]),
+    [$x^n$ ($n eq.not -1$)], [$x^(n+1)/(n+1) + C$],
+    [$(a x+b)^n$ ($n eq.not -1$)], [$(a x+b)^(n+1)/(a(n+1)) + C$],
+    [$1/x$], [$ln|x| + C$],
+    [$1/(a x+b)$], [$ln|a x+b|/a + C$],
+    [$e^x$], [$e^x + C$],
+    [$e^(a x)$], [$e^(a x)/a + C$],
+    [$sin(x)$], [$-cos(x) + C$],
+    [$sin(a x)$], [$-cos(a x)/a + C$],
+    [$cos(x)$], [$sin(x) + C$],
+    [$cos(a x)$], [$sin(a x)/a + C$],
+    [$1/(1+x^2)$], [$arctan(x) + C$],
+    [$1/sqrt(1-x^2)$], [$arcsin(x) + C$],
+    [$x e^(a x)$ (partiel int.)], [$e^(a x)(x/a - 1/a^2) + C$],
+  )
+]
 
-  *Fremgangsmåde — Partiel integration:*
+== Substitution (u-sub)
+
+#important[
+  Brug u-sub når du ser $g'(x)$ som faktor i integralet, og $g(x)$ som "inderst" i en sammensat funktion — dvs. den afledte er allerede til stede.
+]
+
+#note-box()[
+  *Fremgangsmåde — Integration ved substitution (u-sub):*
+
+  + *Identificér $u = g(x)$:* vælg typisk "indersten" af en sammensat funktion eller nævneren.
+  + *Differentier:* Find $dd(u) = g'(x) dd(x)$. Omskriv om nødvendigt: $x dd(x) = dd(u)/(g'(x))$.
+  + *Erstat ALT:* skriv $g(x)$ som $u$ og $g'(x) dd(x)$ som $dd(u)$ overalt i integralet.
+  + *(Bestemt integral) Ændr grænser:* $x = a ==> u = g(a)$ og $x = b ==> u = g(b)$.
+  + *Integrér* det nye (simplere) integral i $u$.
+  + *(Ubestemt integral) Sæt $u$ tilbage:* erstat $u$ med $g(x)$. Tilføj $+ C$.
+
+  *Tegn til u-sub:* $integral f(x^2) dot x dd(x)$, $integral f(e^x) e^x dd(x)$, $integral f(ln x)/x dd(x)$.
+]
+
+#example(title: [u-sub — bestemt integral])[
+  $integral_0^1 2x e^(x^2) dd(x)$.
+
+  #solution()[
+    *Trin 1 — Vælg $u$:* $u = x^2$ (inderst i $e^(x^2)$).
+
+    *Trin 2 — Differentier:* $dd(u) = 2x dd(x)$ — præcis faktoren vi har! ✓
+
+    *Trin 3 — Erstat:* $integral_0^1 e^(x^2) dot 2x dd(x) = integral e^u dd(u)$.
+
+    *Trin 4 — Ændr grænser:* $x = 0 ==> u = 0^2 = 0$; $x = 1 ==> u = 1^2 = 1$.
+
+    *Trin 5 — Integrér:* $integral_0^1 e^u dd(u) = [e^u]_0^1 = e^1 - e^0 = e - 1$.
+  ]
+]
+
+#example(title: [u-sub — ubestemt integral med konstant-justering])[
+  $integral x/(x^2+1) dd(x)$.
+
+  #solution()[
+    *Trin 1 — Vælg $u$:* $u = x^2+1$ (nævneren; tæller er næsten dens afledte).
+
+    *Trin 2 — Differentier:* $dd(u) = 2x dd(x)$, dvs. $x dd(x) = dd(u)/2$.
+
+    *Trin 3 — Erstat:* $integral x/(x^2+1) dd(x) = integral 1/u dot dd(u)/2 = 1/2 integral 1/u dd(u)$.
+
+    _(Trin 4 springer vi over — ingen grænser at ændre for ubestemte integraler.)_
+
+    *Trin 5 — Integrér:* $1/2 integral 1/u dd(u) = 1/2 ln|u| + C$.
+
+    *Trin 6 — Sæt tilbage:* $= 1/2 ln(x^2+1) + C$. ✓
+  ]
+]
+
+== Partiel integration
+
+#important[
+  Brug partiel integration når integralet er et *produkt* af to forskellige funktionstyper — f.eks. $x^n dot e^(a x)$, $x^n dot sin/cos$.
   $
     integral u dd(v) = u v - integral v dd(u)
   $
-  Vælg $u$ (let at diff.) og $dd(v)$ (let at integrere). "LIATE"-prioritet: Logaritme, Inverse trig, Algebraisk, Trig, Eksponential.
 ]
 
-#example(title: [Substitution])[
-  $integral_0^1 2x e^(x^2) dd(x)$.
+#note-box()[
+  *Fremgangsmåde — Partiel integration:*
 
-  $u = x^2 ==> dd(u) = 2x dd(x)$. Grænser: $x=0 ==> u=0$, $x=1 ==> u=1$.
+  + *Vælg $u$ og $dd(v)$* efter *LIATE*-reglen (sæt $u$ = øverste type):
+    - #strong[L]ogaritme > #strong[I]nvers trig > #strong[A]lgebraisk ($x^n$) > #strong[T]rig > #strong[E]ksponential
+  + *Beregn $dd(u)$:* differentier $u$.
+  + *Beregn $v$:* integrer $dd(v)$ (ignorer $+ C$ i dette trin).
+  + *Indsæt i formlen:* $u v - integral v dd(u)$.
+  + *Løs det resterende integral* — det bør nu være enklere.
+  + *Tilføj $+ C$* til det endelige svar.
 
-  $= integral_0^1 e^u dd(u) = [e^u]_0^1 = e - 1$.
+  *Tommelfingerregel:* $u$ skal blive enklere ved differentiering. $dd(v)$ skal kunne integreres.
+]
+
+#example(title: [$integral x e^(a x) dd(x)$])[
+  #solution()[
+    *Trin 1 — Vælg (LIATE):* $x$ er algebraisk, $e^(a x)$ er eksponential. Algebraisk > Eksponential:
+    $ u = x, quad dd(v) = e^(a x) dd(x) $
+
+    *Trin 2 — Beregn $dd(u)$:*
+    $ dd(u) = dd(x) $
+
+    *Trin 3 — Beregn $v$:*
+    $ v = integral e^(a x) dd(x) = e^(a x)/a $
+
+    *Trin 4 — Indsæt i formlen $u v - integral v dd(u)$:*
+    $
+      integral x e^(a x) dd(x) = x dot e^(a x)/a - integral e^(a x)/a dd(x)
+    $
+
+    *Trin 5 — Løs restintegralet:*
+    $
+      integral e^(a x)/a dd(x) = 1/a dot e^(a x)/a = e^(a x)/a^2
+    $
+
+    *Trin 6 — Samlet svar:*
+    $
+      integral x e^(a x) dd(x) = x e^(a x)/a - e^(a x)/a^2 + C = e^(a x) (x/a - 1/a^2) + C
+    $
+
+    *Specialtilfælde $a = 1$:* $integral x e^x dd(x) = e^x (x - 1) + C$.
+  ]
+]
+
+== Find konstanten $C$
+
+#note-box()[
+  *Fremgangsmåde — Find $C$ når punktet $(x_0, y_0)$ er givet:*
+
+  + Find stamfunktionen $F(x) + C$ ved integration.
+  + Indsæt det kendte punkt: $y_0 = F(x_0) + C$.
+  + Løs for $C$: $C = y_0 - F(x_0)$.
+
+  *Nyttige værdier:* $e^0 = 1$, $ln(1) = 0$, $sin(0) = 0$, $cos(0) = 1$.
+]
+
+#example(title: [Find C])[
+  Givet $F'(x) = 2x e^(x^2)$ og $F(0) = 3$. Find $F(x)$.
+
+  #solution()[
+    *Trin 1 — Integrer* (u-sub, $u = x^2$): $F(x) = e^(x^2) + C$.
+
+    *Trin 2 — Indsæt $(0, 3)$:* $3 = e^(0^2) + C = e^0 + C = 1 + C$.
+
+    *Trin 3 — Løs:* $C = 2$.
+
+    *Svar:* $F(x) = e^(x^2) + 2$.
+  ]
+]
+
+== Svar med eksponentialer
+
+#note-box()[
+  Evaluér bestemt integral trin for trin — lad svaret stå i eksakt form:
+
+  + Beregn stamfunktionen $F(x)$.
+  + Indsæt grænser: $[F(x)]_a^b = F(b) - F(a)$.
+  + Brug $e^0 = 1$ ved nedre grænse $x = 0$ til at forenkle.
+  + Træk fællesfaktor ud hvis muligt: $a e^k + b e^k = (a+b)e^k$.
+  + Lad svaret stå som f.eks. $8e^9 + 4$ — *ikke* forenkle eksponenterne yderligere.
+
+  *Eksempel:* $[2 e^(3x) + 1]_0^3 = (2e^9 + 1) - (2e^0 + 1) = 2e^9 + 1 - 2 - 1 = 2e^9 - 2 = 2(e^9-1)$.
 ]
 
 == Kurvelængde
