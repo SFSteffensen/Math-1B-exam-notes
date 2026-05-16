@@ -583,6 +583,59 @@
   Hvis $va(V)$ er lineær, dvs. $va(V)(va(x)) = vb(A) va(x) + va(b)$, så er $vb(J)_(va(V)) = vb(A)$ (konstant). Brug Sarrus eller cofaktor-udvidelse for $det$.
 ]
 
+== Niveaukurver
+
+#definition(title: [Niveaukurve])[
+  For $f : RR^n -> RR$ er *niveaukurven* (level set) gennem $va(x)_0$:
+  $
+    N_c = {va(x) in RR^n mid(|) f(va(x)) = c}, quad c = f(va(x)_0)
+  $
+]
+
+#note-box()[
+  *Fremgangsmåde — Er punkt $va(p)$ på niveaukurven gennem $va(x)_0$?*
+
+  + Beregn $c = f(va(x)_0)$.
+  + Tjek om $f(va(p)) = c$. Hvis ja → $va(p)$ er på kurven.
+]
+
+#example(title: [Niveaukurve])[
+  $f(x_1, x_2) = 3 x_1 - x_2 + 3$. Er $(7, 15)$ på niveaukurven gennem $(3, 3)$?
+
+  #solution()[
+    $c = f(3, 3) = 9 - 3 + 3 = 9$.
+
+    $f(7, 15) = 21 - 15 + 3 = 9 = c$ ✓ → ja, $(7, 15)$ er på kurven.
+  ]
+]
+
+== Kvadratkompletion (cirkel fra niveaukurve)
+
+#important[
+  *Identitet:* $x^2 + b x = (x + b/2)^2 - b^2/4$
+]
+
+#note-box()[
+  *Fremgangsmåde — Skriv $x^2 + y^2 + a x + b y + d = c$ om til cirkelform:*
+
+  + Gruppér $x$-led og $y$-led separat.
+  + Tilføj og træk $(a/2)^2$ for $x$-parret og $(b/2)^2$ for $y$-parret.
+  + Saml i kvadrater; flyt konstanter til højresiden.
+  + Aflæs: centrum $= (-a/2, -b/2)$, radius $r = sqrt("højreside")$.
+]
+
+#example(title: [Niveaukurve som cirkel])[
+  $x^2 + y^2 - 10 x + 2 y + 26 = 65$.
+
+  #solution()[
+    $x^2 - 10 x = (x-5)^2 - 25$ og $y^2 + 2 y = (y+1)^2 - 1$.
+
+    $(x-5)^2 + (y+1)^2 = 65 - 26 + 25 + 1 = 65$.
+
+    Centrum $(5, -1)$, radius $sqrt(65)$.
+  ]
+]
+
 #pagebreak()
 
 
@@ -683,6 +736,31 @@
   $va(v)_1 = vec(2, 0, 2, 1)$, $va(v)_2 = vec(-2, 1, 2, 0)$.
 
   $iprod(va(v)_1, va(v)_2) = 2(-2) + 0(1) + 2(2) + 1(0) = -4 + 0 + 4 + 0 = 0$ ✓
+]
+
+== Konstruktion af ortogonal vektor i $CC^n$
+
+#note-box()[
+  *Fremgangsmåde — Find $va(w) perp va(v)$ i $CC^n$:*
+
+  + Vælg én komponent af $va(w)$ til at være $0$ (forenkler).
+  + Betingelsen $iprod(va(v), va(w)) = sum_k v_k overline(w_k) = 0$ reduceres til en 2-leddet ligning.
+  + Vælg $va(w)$-komponenter så de to led udligner hinanden.
+
+  *Husk konventionen:* Bogen konjugerer den ANDEN entry: $iprod(va(v), va(w)) = sum v_k overline(w_k)$.
+]
+
+#example(title: [Ortogonal vektor i $CC^3$])[
+  Find $va(w) perp va(v)$ for $va(v) = (5i, -6i, 3)$ i $CC^3$.
+
+  #solution()[
+    Vælg $w_3 = 0$. Da skal $5i overline(w_1) + (-6i) overline(w_2) = 0$.
+
+    Prøv $va(w) = (6i, 5i, 0)$: $overline(w_1) = -6i$, $overline(w_2) = -5i$.
+    $
+      5i dot (-6i) + (-6i) dot (-5i) = -30 i^2 + 30 i^2 = 30 - 30 = 0 checkmark
+    $
+  ]
 ]
 
 == Cauchy-Schwarz og trekantsulighed
@@ -981,6 +1059,33 @@
   ]
 ]
 
+== Kvadratisk form med lineært led
+
+#note-box()[
+  *Udvidelse med lineært led:*
+  $
+    q(x_1, x_2) = va(x)^T vb(A) va(x) + va(x)^T va(b) + c
+  $
+
+  For $vb(A) = mat(a_(11), a_(12); a_(21), a_(22))$, $va(b) = vec(b_1, b_2)$:
+  $
+    q = a_(11) x_1^2 + a_(22) x_2^2 + (a_(12) + a_(21)) x_1 x_2 + b_1 x_1 + b_2 x_2 + c
+  $
+
+  *Vigtigt:* Det blandede led er $a_(12) + a_(21)$ — *ikke* $2 a_(12)$ medmindre $vb(A)$ er symmetrisk. Brug altid summen direkte når $vb(A)$ ikke er symmetrisk.
+]
+
+#example(title: [Kvadratisk form med lineært led])[
+  $vb(A) = mat(9, 2; -5, 14)$, $va(b) = vec(20, 23)$, $c = 1$.
+
+  #solution()[
+    $
+      q = 9 x_1^2 + 14 x_2^2 + (2 + (-5)) x_1 x_2 + 20 x_1 + 23 x_2 + 1
+        = 9 x_1^2 + 14 x_2^2 - 3 x_1 x_2 + 20 x_1 + 23 x_2 + 1
+    $
+  ]
+]
+
 == Definitehed
 
 #important[
@@ -1252,6 +1357,28 @@
 
 = Extremum og Optimering
 
+== 1D anden-ordens test
+
+#theorem(title: [1D anden-ordens test])[
+  For $f: RR -> RR$ med stationært punkt $x_0$ ($f'(x_0) = 0$):
+
+  - $f''(x_0) > 0$ → *strikt lokalt minimum*
+  - $f''(x_0) < 0$ → *strikt lokalt maksimum*
+  - $f''(x_0) = 0$ → uafgjort (kræver højere afledte eller direkte inspektion)
+]
+
+#example(title: [1D anden-ordens test])[
+  $f(x) = -2 x sin(7 x)$. Er $x = 0$ et lokalt ekstremum?
+
+  #solution()[
+    $f'(0) = 0$ ✓ (stationært punkt).
+
+    $f''(x) = -28 cos(7 x) + 98 x sin(7 x) ==> f''(0) = -28 < 0$.
+
+    → Lokalt *maksimum* i $x = 0$.
+  ]
+]
+
 == Stationære punkter
 
 #definition(title: [Stationært punkt])[
@@ -1388,6 +1515,63 @@
   + *Sammenlign alle $f$-værdier* → største er global max, mindste er global min.
 
   *Husk:* Lukket og begrænset → ekstrema findes garanteret (Sætning 5.2.1).
+]
+
+== Værdimængde for monoton funktion på interval
+
+#theorem(title: [Billedmængde af kontinuert funktion på $[a,b]$])[
+  For kontinuert $f$ på $[a, b]$:
+  - *Monotont voksende:* $f([a, b]) = [f(a), f(b)]$.
+  - *Monotont aftagende:* $f([a, b]) = [f(b), f(a)]$.
+  - *Generelt (ikke-monoton):* $f([a, b]) = [min_(x in [a,b]) f(x),\ max_(x in [a,b]) f(x)]$ (Sætning 5.2.1).
+
+  Lukket interval $+$ kontinuert $f$ $=>$ *lukket* interval som billedmængde.
+]
+
+#example(title: [Værdimængde på interval])[
+  $f(x) = -7 x + 40$ på $[6, 10]$.
+
+  #solution()[
+    Lineær med hældning $-7 < 0$ → monotont aftagende.
+
+    $f(6) = -42 + 40 = -2$, $f(10) = -70 + 40 = -30$.
+
+    Billedmængde: $[-30, -2]$.
+  ]
+]
+
+#pagebreak()
+
+
+// TALFØLGER
+
+
+= Talfølger (Sequences)
+
+#definition(title: [Konvergent talfølge])[
+  Talfølgen $\{a_n\}_(n in NN)$ er *konvergent* med grænse $L$ hvis $lim_(n -> infinity) a_n = L$ eksisterer og er endelig. Ellers er følgen *divergent*.
+]
+
+#important[
+  *Standard grænseværdier:*
+  - $lim_(n -> infinity) 1/n^p = 0$ for $p > 0$.
+  - $lim_(n -> infinity) r^n = 0$ for $|r| < 1$; $= 1$ for $r = 1$; divergerer ellers.
+  - $lim_(n -> infinity) (-1)^n$ *eksisterer ikke* (oscillerer mellem $-1$ og $1$).
+
+  *Nøgletrick — $(-1)^n$-faktor:*
+  - $(-1)^n$ alene: divergerer.
+  - $(-1)^n / n -> 0$ (knib: $abs((-1)^n / n) <= 1/n -> 0$).
+  - $a_n dot (-1)^n$ divergerer hvis $a_n -> L eq.not 0$ (oscillerer ±$L$).
+]
+
+#example(title: [Talfølge — konvergens])[
+  Afgør om $a_n = 1/n dot (-1)^n + 12$ og $b_n = (1/n + 12)(-1)^n$ konvergerer.
+
+  #solution()[
+    *$a_n$:* $(-1)^n / n -> 0$, så $a_n -> 0 + 12 = 12$. *Konvergerer.*
+
+    *$b_n$:* For store $n$: $b_n approx 12 dot (-1)^n$, som oscillerer mellem $approx plus.minus 12$. *Divergerer.*
+  ]
 ]
 
 #pagebreak()
@@ -1573,6 +1757,88 @@
   + Lad svaret stå som f.eks. $8e^9 + 4$ — *ikke* forenkle eksponenterne yderligere.
 
   *Eksempel:* $[2 e^(3x) + 1]_0^3 = (2e^9 + 1) - (2e^0 + 1) = 2e^9 + 1 - 2 - 1 = 2e^9 - 2 = 2(e^9-1)$.
+]
+
+== Riemann-summer
+
+#definition(title: [Riemann-sum])[
+  Opdel $[a, b]$ i $n$ lige store delintervaller med bredde $Delta x = (b-a)/n$.
+
+  - *Midtpunktsregel:* $m_i = a + (i - 1/2) Delta x$ (midtpunkt af $i$-te interval).
+  - *Venstre endepunkt:* $x_i = a + (i-1) Delta x$.
+  - *Højre endepunkt:* $x_i = a + i Delta x$.
+
+  $
+    S = Delta x dot sum_(i=1)^n f(x_i) approx integral_a^b f(x) dd(x)
+  $
+]
+
+#note-box()[
+  *Fremgangsmåde — Beregn Riemann-sum:*
+
+  + Identificér $a$, $b$, $n$ og regeltype (venstre/midtpunkt/højre) fra opgaven.
+  + Beregn $Delta x = (b-a)/n$.
+  + Find evalueringspunkterne og beregn $f$ i hvert.
+  + Summér og multiplicér med $Delta x$.
+]
+
+#example(title: [Riemann-sum, midtpunktsregel])[
+  $f(x) = 2x - 1$ på $[0, 2]$, $n = 2$, midtpunktsregel.
+
+  #solution()[
+    $Delta x = (2-0)/2 = 1$. Midtpunkter: $m_1 = 0.5$, $m_2 = 1.5$.
+
+    $f(0.5) = 0$, $f(1.5) = 2$.
+
+    $S = 1 dot (0 + 2) = 2$.
+  ]
+]
+
+== Uegentlige integraler
+
+#definition(title: [Uegentlige integraler])[
+  *Type 1 — ubegrænset interval:*
+  $
+    integral_a^infinity f(x) dd(x) = lim_(b -> infinity) integral_a^b f(x) dd(x)
+  $
+
+  *Type 2 — ubegrænset integrand (singularitet i endepunkt):*
+  $
+    integral_0^b f(x) dd(x) = lim_(a -> 0^+) integral_a^b f(x) dd(x) quad "(singularitet i 0)"
+  $
+
+  Integralet *konvergerer* hvis grænsen er endelig, ellers *divergerer*.
+]
+
+#important[
+  *Konvergenstommelfingerregler:*
+  - $integral_1^infinity x^(-p) dd(x)$ konvergerer $<==> p > 1$.
+  - $integral_0^1 x^(-p) dd(x)$ konvergerer $<==> p < 1$.
+  - $integral_a^infinity e^(-k x) dd(x)$ konvergerer for ethvert $k > 0$.
+]
+
+#example(title: [Uegentligt integral — singularitet (Type 2)])[
+  Beregn $integral_0^2 x^(-1/9) dd(x)$.
+
+  #solution()[
+    $p = 1/9 < 1$ → konvergerer.
+
+    $
+      integral_0^2 x^(-1/9) dd(x) = [x^(8/9) / (8/9)]_0^2 = 9/8 dot 2^(8/9)
+    $
+  ]
+]
+
+#example(title: [Uegentligt integral — ubegrænset interval (Type 1)])[
+  Beregn $integral_9^infinity e^(-4x) dd(x)$.
+
+  #solution()[
+    Eksponentielt henfald → konvergerer.
+
+    $
+      integral_9^infinity e^(-4x) dd(x) = lim_(b -> infinity) [e^(-4x) / (-4)]_9^b = 0 - e^(-36) / (-4) = e^(-36) / 4
+    $
+  ]
 ]
 
 == Kurvelængde
@@ -1825,6 +2091,45 @@
   Dette sparer MASSER af tid.
 ]
 
+== Massemidtpunkt
+
+#definition(title: [Massemidtpunkt (Center of mass)])[
+  For legeme $K subset.eq RR^3$ med massefylde $rho(x, y, z)$:
+  $
+    macron(x) = frac(integral.triple_K x rho dd(V), integral.triple_K rho dd(V)), quad
+    macron(y) = frac(integral.triple_K y rho dd(V), integral.triple_K rho dd(V)), quad
+    macron(z) = frac(integral.triple_K z rho dd(V), integral.triple_K rho dd(V))
+  $
+
+  Nævneren er den *totale masse*; tælleren er *første moment* ift. det tilsvarende plan.
+]
+
+#math-hint()[
+  *Symmetri-genvej:* Hvis $K$ og $rho$ er symmetriske ift. et plan (f.eks. $y z$-planet), ligger massemidtpunktet på det plan. For en cylinder langs $z$-aksen med $rho$ afhængende kun af $z$: $macron(x) = macron(y) = 0$ med det samme.
+]
+
+#example(title: [Massemidtpunkt for cylinder])[
+  Cylinder $r <= 3$, $0 <= z <= 2$, massefylde $rho = 4 z^2$. Find massemidtpunktet.
+
+  #solution()[
+    Symmetri → $macron(x) = macron(y) = 0$.
+
+    *Total masse* (cylindriske koordinater):
+    $
+      M = integral_0^(2 pi) dd(theta) dot integral_0^3 r dd(r) dot integral_0^2 4 z^2 dd(z)
+        = 2 pi dot 9/2 dot 32/3 = 96 pi
+    $
+
+    *Første moment* ift. $x y$-planet:
+    $
+      M_z = integral_0^(2 pi) dd(theta) dot integral_0^3 r dd(r) dot integral_0^2 4 z^3 dd(z)
+          = 2 pi dot 9/2 dot 16 = 144 pi
+    $
+
+    $macron(z) = M_z / M = (144 pi) / (96 pi) = 3/2$.
+  ]
+]
+
 #pagebreak()
 
 
@@ -1914,6 +2219,53 @@
   *Fladeintegraler er sjældne på 1b-eksamen* (kun grundbegrebet). Du behøver kun at kende formlen og kunne bruge den hvis spurgt.
 
   *Bemærk:* User-specifik undtagelse — sidste 4 sider af 7.2 ("Surface integrals of vector fields" og forfremde stykker) er IKKE pensum.
+]
+
+== Grafflade-integral ($z = h(x,y)$)
+
+#theorem(title: [Fladeintegral over graf])[
+  For flade $B = {(x, y, z) mid(|) z = h(x, y),\ (x,y) in D}$:
+  $
+    integral.double_B f dd(S) = integral.double_D f(x, y, h(x,y)) dot sqrt(1 + (pdv(h, x))^2 + (pdv(h, y))^2) dd(x) dd(y)
+  $
+
+  *Afledning:* $va(r)(x,y) = (x, y, h(x,y))$ → $va(r)_x times va(r)_y = (-h_x, -h_y, 1)$ → norm $= sqrt(1 + h_x^2 + h_y^2)$.
+
+  *Specialtilfælde — affin $h = a x + b y + c$:* Jacobianen er den konstante $sqrt(1 + a^2 + b^2)$.
+]
+
+#example(title: [Grafflade-integral])[
+  $h(x, y) = 7x + 3y + 8$ over $[0,1]^2$. Beregn $integral.double_B 5y dd(S)$.
+
+  #solution()[
+    $h_x = 7$, $h_y = 3$ → Jacobian $= sqrt(1 + 49 + 9) = sqrt(59)$.
+
+    $
+      integral_0^1 integral_0^1 5 y dot sqrt(59) dd(y) dd(x) = sqrt(59) dot 1 dot [5 y^2/2]_0^1 = (5 sqrt(59))/2
+    $
+  ]
+]
+
+== Punkt på parametriseret flade/område
+
+#note-box()[
+  *Fremgangsmåde — Find $(u, v)$ givet $va(r)(u, v) = (x_0, y_0, z_0)$:*
+
+  + Start med den komponent der afhænger af færrest parametre (typisk én ad gangen).
+  + Løs for én parameter, substituer ind i de resterende.
+  + Verificér alle komponenter.
+]
+
+#example(title: [Punkt på parametriseret flade])[
+  $va(r)(u, v) = (u+4,\ v^2 u,\ 4v)$. Find $(u, v)$ for punktet $(9, 500, 40)$.
+
+  #solution()[
+    *1. komponent:* $u + 4 = 9 ==> u = 5$.
+
+    *3. komponent:* $4v = 40 ==> v = 10$.
+
+    *Verificér 2. komponent:* $v^2 u = 100 dot 5 = 500$ ✓.
+  ]
 ]
 
 #pagebreak()
